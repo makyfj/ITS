@@ -5,7 +5,7 @@ import asyncHandler from "express-async-handler";
 import * as bcrypt from "bcrypt";
 
 // @desc Register a new user
-// @route POST /api/user/register
+// @route POST /api/users/register
 // @access Public
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -18,9 +18,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("User already registered");
   }
 
-  const hashedPassword = await bcrypt.hash(password);
-
-  const newUser = await UserModel.create({ name, email, hashedPassword });
+  const newUser = await UserModel.create({ name, email, password });
 
   if (newUser) {
     res.status(201).json({
