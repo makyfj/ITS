@@ -1,12 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 import { NextFunction } from "express";
 
-interface User {
+interface User extends Document {
   name: string;
   email: string;
   password: string;
   isAdmin: boolean;
+  matchPassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<User>(
@@ -27,7 +28,7 @@ userSchema.methods.matchPassword = async function (enteredPassword: string) {
 };
 
 // Encrypts password before saving
-userSchema.pre("save", async function (next: NextFunction) {
+userSchema.pre<User>("save", async function (next: NextFunction) {
   if (!this.isModified("password")) {
     return next();
   }
