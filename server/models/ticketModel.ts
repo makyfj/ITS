@@ -1,5 +1,5 @@
 import { Schema, model, Document} from "mongoose";
-import {User} from "userModel";
+import {UserModel} from "userModel";
 
 interface Ticket extends Document{
 	id: number;
