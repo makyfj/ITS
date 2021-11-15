@@ -1,4 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
+
+import connectDB from "./database/db";
+
+// environment variables
+dotenv.config();
+
+// Db connection
+connectDB();
 
 const app = express();
 
