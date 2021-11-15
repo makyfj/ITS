@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import UserModel from "../models/userModel";
-import User from "../interfaces/userInterface";
 import asyncHandler from "express-async-handler";
-import * as bcrypt from "bcrypt";
+
+import UserModel from "../models/userModel";
+import generateToken from "../utils/generateToken";
 
 // @desc Register a new user
 // @route POST /api/users/register
@@ -26,11 +26,34 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       name: newUser.name,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
+      // Sends a token with user data
+      token: generateToken(newUser._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid user");
+    res.status(400).send("Incorrect information");
   }
 });
 
-export { registerUser };
+// @desc Login a registered user
+// @route POST /api/users/login
+// @access Public
+const loginUser = asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  const user = await UserModel.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      // Sends a token with user data
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400).send("Invalid email or password");
+  }
+});
+
+export { registerUser, loginUser };
