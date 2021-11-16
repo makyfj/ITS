@@ -70,7 +70,8 @@ const getUsers = asyncHandler(async (req: Request, res: Response) => {
 // @route GET /api/users/:id
 // @access Private
 const getUser = asyncHandler(async (req: Request, res: Response) => {
-  const user = await UserModel.findById(req.params.id);
+  // get user without password
+  const user = await UserModel.findById(req.params.id).select("-password");
 
   if (user) {
     res.json({
@@ -84,4 +85,24 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { registerUser, loginUser, getUsers, getUser };
+// @desc Update a user
+// @route PUT /api/users/:id
+// @access Private
+const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
+export { registerUser, loginUser, getUsers, getUser, updateUser };
