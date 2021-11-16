@@ -2,7 +2,7 @@ import { Schema, model, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 import { NextFunction } from "express";
 
-interface User extends Document {
+export interface User extends Document {
   name: string;
   email: string;
   password: string;
