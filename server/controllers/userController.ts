@@ -66,4 +66,22 @@ const getUsers = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(users);
 });
 
-export { registerUser, loginUser, getUsers };
+// @desc Get a single user
+// @route GET /api/users/:id
+// @access Private
+const getUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = await UserModel.findById(req.params.id);
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
+export { registerUser, loginUser, getUsers, getUser };
