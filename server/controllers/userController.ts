@@ -105,4 +105,17 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { registerUser, loginUser, getUsers, getUser, updateUser };
+// @desc Delete a user
+// @route DELETE /api/users/:id
+// @access Private
+const deleteUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = await UserModel.findByIdAndDelete(req.params.id);
+
+  if (user) {
+    res.status(200).send("User deleted");
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
+export { registerUser, loginUser, getUsers, getUser, updateUser, deleteUser };
