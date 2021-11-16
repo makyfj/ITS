@@ -56,4 +56,14 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { registerUser, loginUser };
+// @desc Get all users
+// @route GET /api/users/all
+// @access Private
+const getUsers = asyncHandler(async (req: Request, res: Response) => {
+  // Returns all users
+  const users = await UserModel.find();
+
+  res.status(200).json(users);
+});
+
+export { registerUser, loginUser, getUsers };

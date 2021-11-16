@@ -32,7 +32,11 @@ const authMiddleware = asyncHandler(
   }
 );
 
-const admin = (req: UserRequest, res: Response, next: NextFunction) => {
+const adminMiddleware = (
+  req: UserRequest,
+  res: Response,
+  next: NextFunction
+) => {
   // If the user is an admin, continue with the request to the restricted route
   if (req.user && req.user.isAdmin) {
     next();
@@ -41,4 +45,4 @@ const admin = (req: UserRequest, res: Response, next: NextFunction) => {
   }
 };
 
-export { authMiddleware, admin };
+export { authMiddleware, adminMiddleware };
