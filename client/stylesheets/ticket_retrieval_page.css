@@ -1,0 +1,43 @@
+/* FONTS */
+@font-face {
+    font-family: 'open_sans_bold';
+    src: url('../fonts/opensans_bold.ttf');
+}
+@font-face {
+    font-family: 'open_sans_bold_italic';
+    src: url('../fonts/opensans_bold_italic.ttf');
+}
+@font-face {
+    font-family: 'open_sans_light';
+    src: url('../fonts/opensans_light.ttf');
+}
+@font-face {
+    font-family: 'open_sans_light_italic';
+    src: url('../fonts/opensans_light_italic.ttf');
+}
+@font-face {
+    font-family: 'open_sans';
+    src: url('../fonts/opensans_regular.ttf');
+}
+@font-face {
+    font-family: 'open_sans_italic';
+    src: url('../fonts/opensans_italic.ttf');
+}
+
+/* UNIVERSAL SELECTORS */
+body{
+    margin: 0px;
+    margin-left: 2%;
+    background-color: rgb(65, 141, 255);
+}
+
+/* CLASS SELECTORS */
+div.header h1{
+    font-family: open_sans_light_italic;
+    text-decoration: underline;
+    font-size: 60px;
+}
+
+div.main_container h1{
+    font-family: open_sans;
+}
