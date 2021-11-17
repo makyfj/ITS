@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import connectDB from "./database/db";
 import { userRoutes } from "./routes/userRoutes";
@@ -13,6 +14,7 @@ connectDB();
 const app = express();
 
 // body parse - middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
