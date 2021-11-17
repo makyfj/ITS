@@ -19,7 +19,8 @@ const Login = () => {
 
     if (status === 200) {
       console.log(data);
-      router.push("/");
+      const { _id } = data;
+      router.push(`/user/${_id}`);
     }
   };
 
