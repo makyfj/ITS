@@ -1,3 +1,6 @@
+/* any imports */
+@import url(lib/coffee.css);
+
 /* FONTS */
 @font-face {
     font-family: 'open_sans_bold';
@@ -52,57 +55,24 @@ div.nav_toolbar a:hover{
     color: white;
 }
 
-/* Styling for the header */
-div.header{
-    background-color: rgb(140, 209, 255);
-    padding: 2%;
-    margin-top: 1%;
-    border: 10px outset rgb(140, 209, 255);
-}
-
-div.header h1{
-    font-family: open_sans_light_italic;
-    text-decoration: underline;
-    font-size: 45px;
-    margin: 0px;
-}
-
 /* Styling for the main container */
 div.main_container{
-    background-color: rgb(90, 177, 248);
     padding: 2%;
+    margin-top: 1%;
+    background-color: rgb(44, 133, 206);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-div.main_container h1{
+div.main_container div.main_container_heading{
+    background-color: rgb(89, 180, 255);
+    padding: 2%;
+    border: 7px outset rgb(146, 206, 255);
+}
+
+div.main_container div.main_container_heading h1{
     font-family: 'open_sans';
-}
-
-/* Styling for the open incidents container*/
-div.open_incidents_container{
-    background-color: rgb(145, 205, 255);
-    padding: 1%;
-}
-
-div.open_incidents_container button{
-    background-color: rgb(53, 164, 255);
-    padding: 1%;
     color: white;
-    font-family: 'open_sans_light';
-    font-size: 20px;
-    border: 5px outset rgb(53, 164, 255);
-}
-
-div.open_incidents_container button:hover{
-    background-color: rgb(29, 90, 139);
-    border: 5px outset rgb(29, 90, 139);
-    text-shadow: 0 0 3px rgb(0, 255, 242);
-    transition-duration: 0.25s;
-}
-
-div.open_incidents_container button:active{
-    color: white;
-    border: 5px outset white;
-    background-color: white;
-    text-shadow: none;
-    transition-duration: 0s;
+    font-size: 60px;
 }

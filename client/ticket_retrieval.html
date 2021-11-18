@@ -8,11 +8,22 @@
     <link rel="stylesheet" href="stylesheets/ticket_retrieval_page.css">
 </head>
 <body>
+    <div class="nav_toolbar">
+        <nav>
+            <a href="home.html">Home</a> |
+            <a href="ticket_retrieval.html">Ticket</a> |
+        </nav>
+    </div>
+    
     <div class="header">
         <h1 align="left">Ticket Information</h1>
     </div>
 
     <div class="main_container">
+        <div class="open_incidents_container">
+            <button onclick="showOpenIncidents()">View Open Incidents</button>
+            <h1 id="incidentContainer"></h1>
+        </div>
         <h1>Category: </h1>
         <h1>Description: </h1>
         <h1>Date Created: </h1>
@@ -24,4 +35,5 @@
         <h1>Case History: </h1>
     </div>
 </body>
+<script src="scripts/ticket_retrieval.js"></script>
 </html>
