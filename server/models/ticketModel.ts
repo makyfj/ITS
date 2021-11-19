@@ -3,25 +3,33 @@ import { User } from "./userModel";
 
 interface Ticket extends Document {
   category: string;
-  state: string;
-  dateCreated: Date;
-  dateResolved: Date;
-  contact: string;
+  title: string;
+  description: string;
+  isResolved: boolean;
   tags: Array<string>;
-  currentAssignee: User;
+  user: User;
   caseHistory: Array<string>;
 }
 
-const ticketSchema = new Schema<Ticket>({
-  category: { type: String, required: true },
-  state: { type: String, required: true },
-  dateCreated: { type: Date, required: true },
-  dateResolved: { type: Date, required: true },
-  contact: { type: String, required: true },
-  tags: { type: [String], required: true },
-  currentAssignee: { type: Schema.Types.ObjectId, required: true, ref: "User" },
-  caseHistory: { type: [String], required: true },
-});
+const ticketSchema = new Schema<Ticket>(
+  {
+    category: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    isResolved: { type: Boolean, required: true },
+    tags: { type: [String], required: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    caseHistory: { type: [String], required: true },
+  },
+  {
+    // This provides createdAt and updatedAt
+    timestamps: true,
+  }
+);
 
 // Create the ticket model
 const TicketModel = model<Ticket>("Ticket", ticketSchema);
