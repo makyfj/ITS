@@ -3,26 +3,31 @@ import { User } from "./userModel";
 
 interface Ticket extends Document {
   category: string;
-  title: string;
   description: string;
-  isResolved: boolean;
+  dateCreated: { type: Date; required: true };
+  dateResolved: { type: Date; required: true };
+  // If true - then ticket is resolved else not resolved
+  state: boolean;
   tags: Array<string>;
   user: User;
+  currentAssignee: string;
   caseHistory: Array<string>;
 }
 
 const ticketSchema = new Schema<Ticket>(
   {
     category: { type: String, required: true },
-    title: { type: String, required: true },
     description: { type: String, required: true },
-    isResolved: { type: Boolean, required: true },
+    dateCreated: { type: Date, required: true },
+    dateResolved: { type: Date, required: true },
+    state: { type: Boolean, required: true, default: false },
     tags: { type: [String], required: true },
     user: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
+    currentAssignee: { type: String, required: true },
     caseHistory: { type: [String], required: true },
   },
   {
