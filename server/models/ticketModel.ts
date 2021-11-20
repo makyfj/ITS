@@ -4,8 +4,8 @@ import { User } from "./userModel";
 interface Ticket extends Document {
   category: string;
   description: string;
-  dateCreated: { type: Date; required: true };
-  dateResolved: { type: Date; required: true };
+  dateCreated?: { type: Date; required: true };
+  dateResolved?: { type: Date; required: true };
   // If true - then ticket is resolved else not resolved
   state: boolean;
   tags: Array<string>;

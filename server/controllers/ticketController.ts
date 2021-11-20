@@ -1,27 +1,36 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { UserRequest } from "../interfaces/userRequest";
+import jwt from "jsonwebtoken";
 
+import { UserIdRequest } from "../interfaces/userIdRequest";
+import { UserRequest } from "../interfaces/userRequest";
 import TicketModel from "../models/ticketModel";
+import UserModel from "../models/userModel";
 
 // @desc Create a new Ticket
 // @route POST /api/tickets/ticket
 // @access Private
-const createTicket = asyncHandler(async (req: UserRequest, res: Response) => {
-  const { category, description, state, tags, currentAssignee } = req.body;
+const createTicket = asyncHandler(async (req: Request, res: Response) => {
+  // const { category, description, state, tags, currentAssignee } = req.body;
+  console.log(req.headers.authorization.startsWith("Bearer"));
+  const token = req.headers.authorization.split(" ")[1];
+  console.log(token);
+  const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
+  console.log(decoded);
+  const { userId } = decoded;
+  console.log(userId);
+  // const ticket = new TicketModel({
+  //   category,
+  //   description,
+  //   state,
+  //   tags,
+  //   user: req.user._id,
+  //   currentAssignee,
+  // });
 
-  const ticket = new TicketModel({
-    category,
-    description,
-    state,
-    tags,
-    user: req.user._id,
-    currentAssignee,
-  });
+  // const createTicket = await ticket.save({});
 
-  const createTicket = await ticket.save({});
-
-  res.status(201).json(createTicket);
+  // res.status(201).json(createTicket);
 });
 
 // @desc Get a ticket by id
