@@ -29,7 +29,7 @@ const User = () => {
     const { data, status } = await axios.delete(`${API_URL}/${userId}`);
 
     if (status === 200) {
-      console.log("User removed");
+      console.log(data);
       router.push("/");
     }
   };
