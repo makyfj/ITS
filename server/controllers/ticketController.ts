@@ -14,11 +14,10 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
   // const { category, description, state, tags, currentAssignee } = req.body;
   console.log(req.headers.authorization.startsWith("Bearer"));
   const token = req.headers.authorization.split(" ")[1];
-  console.log(token);
   const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(decoded);
   const { userId } = decoded;
-  console.log(userId);
+  const user = await UserModel.findById(userId);
+  res.status(200).json(user);
   // const ticket = new TicketModel({
   //   category,
   //   description,
