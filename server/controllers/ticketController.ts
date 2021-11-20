@@ -11,25 +11,26 @@ import UserModel from "../models/userModel";
 // @route POST /api/tickets/ticket
 // @access Private
 const createTicket = asyncHandler(async (req: Request, res: Response) => {
-  // const { category, description, state, tags, currentAssignee } = req.body;
-  console.log(req.headers.authorization.startsWith("Bearer"));
+  const { category, description, state, tags, currentAssignee } = req.body;
+
   const token = req.headers.authorization.split(" ")[1];
   const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
   const { userId } = decoded;
   const user = await UserModel.findById(userId);
-  res.status(200).json(user);
-  // const ticket = new TicketModel({
-  //   category,
-  //   description,
-  //   state,
-  //   tags,
-  //   user: req.user._id,
-  //   currentAssignee,
-  // });
 
-  // const createTicket = await ticket.save({});
+  const ticket = new TicketModel({
+    category,
+    description,
+    dateCreated: new Date(),
+    state,
+    tags,
+    user: user._id,
+    currentAssignee,
+  });
 
-  // res.status(201).json(createTicket);
+  const createTicket = await ticket.save({});
+
+  res.status(201).json(createTicket);
 });
 
 // @desc Get a ticket by id

@@ -4,8 +4,8 @@ import { User } from "./userModel";
 interface Ticket extends Document {
   category: string;
   description: string;
-  dateCreated?: { type: Date; required: true };
-  dateResolved?: { type: Date; required: true };
+  dateCreated: { type: Date; required: true };
+  dateResolved: { type: Date; required: true };
   // If true - then ticket is resolved else not resolved
   state: boolean;
   tags: Array<string>;
@@ -19,7 +19,7 @@ const ticketSchema = new Schema<Ticket>(
     category: { type: String, required: true },
     description: { type: String, required: true },
     dateCreated: { type: Date, required: true },
-    dateResolved: { type: Date, required: true },
+    dateResolved: { type: Date },
     state: { type: Boolean, required: true, default: false },
     tags: { type: [String], required: true },
     user: {
@@ -28,7 +28,7 @@ const ticketSchema = new Schema<Ticket>(
       ref: "User",
     },
     currentAssignee: { type: String, required: true },
-    caseHistory: { type: [String], required: true },
+    caseHistory: { type: [String] },
   },
   {
     // This provides createdAt and updatedAt
