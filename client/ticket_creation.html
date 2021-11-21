@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Tracking System - Ticket Creation</title>
+    <link rel="stylesheet" href="stylesheets/ticket_creation_page.css">
+</head>
+<body>
+    <div class="nav_toolbar">
+        <nav>
+            <a href="home.html">Home</a> |
+            <a href="ticket_retrieval.html">Ticket Retrieval</a> |
+            <a href="ticket_creation.html">Ticket Creation</a>
+        </nav>
+    </div>
+    <div class="header">
+        <h1 align="left">Ticket Creation</h1>
+    </div>
+    <div class="main_body_container">
+        <form action="">
+            <label for="">Category: </label>
+            <input list="category_list" name="categoryInput" id="">
+            <datalist id="category_list">
+                <option value="Category 1">
+                <option value="Category 2">
+                <option value="Category 3">
+                <option value="Category 4">
+            </datalist>
+            <br>
+
+            <label for="">Description: </label><br>
+            <textarea name="descriptionInput" id="" cols="30" rows="10"></textarea><br>
+            
+            <label for="">Date Created: </label>
+            <input type="date" name="dateCreatedInput" id=""><br>
+            
+            <label for="">Date Resolved: </label>
+            <input type="date" name="dateResolvedInput" id=""><br>
+        
+            <label for="">State: </label>
+            <input list="state_list" name="stateInput" id="">
+            <datalist id="state_list">
+                <option value="State 1">
+                <option value="State 2">
+                <option value="State 3">
+                <option value="State 4">
+            </datalist>
+            <br>
+
+            <label for="">Point of Contact: </label><br>
+            <textarea name="contactInput" id="" cols="30" rows="3"></textarea><br>
+            
+            <label for="">Tags: </label><br>
+            <input type="text" name="tagsInput" id=""><br>
+
+            <label for="">Current Assignee: </label><br>
+            <input type="text" name="assigneeInput" id=""><br>
+
+            <input type="submit" value="Create Ticket">
+        </form>
+    </div>
+</body>
+<script src="scripts/ticket_retrieval.js"></script>
+</html>
