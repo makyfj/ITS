@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
             <Link href="/register">Register</Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
           </li>
         </ul>
       </header>
