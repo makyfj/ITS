@@ -46,7 +46,26 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
 // @desc Get a ticket by id
 // @route GET /api/tickets/:id
 // @access Private/Admin
-const getTicket = asyncHandler(async (req: Request, res: Response) => {});
+const getTicket = asyncHandler(async (req: Request, res: Response) => {
+  const ticket = await TicketModel.findById(req.params.id);
+
+  if (ticket) {
+    res.json({
+      _id: ticket._id,
+      category: ticket.category,
+      description: ticket.description,
+      dateCreated: ticket.dateCreated,
+      dateResolved: ticket.dateResolved,
+      state: ticket.state,
+      tags: ticket.tags,
+      user: ticket.user,
+      currentAssignee: ticket.currentAssignee,
+      caseHistory: ticket.caseHistory,
+    });
+  } else {
+    res.status(404).send("Ticket not found");
+  }
+});
 
 // @desc Update a ticket by id
 // @route PUT /api/tickets/:id
@@ -68,4 +87,4 @@ const getUserTickets = asyncHandler(async (req: Request, res: Response) => {});
 // @access Private/Admin
 const getAllTickets = asyncHandler(async (req: Request, res: Response) => {});
 
-export { createTicket };
+export { createTicket, getTicket };
