@@ -28,7 +28,17 @@ const ticketSchema = new Schema<Ticket>(
       ref: "User",
     },
     currentAssignee: { type: String, required: true },
-    caseHistory: { type: [Object] },
+    caseHistory: {
+      type: [
+        {
+          category: { type: String, required: true },
+          description: { type: String, required: true },
+          dateCreated: { type: Date, required: true },
+          dateResolved: { type: Date },
+          state: { type: Boolean, required: true },
+        },
+      ],
+    },
   },
   {
     // This provides createdAt and updatedAt
