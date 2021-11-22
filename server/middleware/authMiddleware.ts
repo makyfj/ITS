@@ -22,12 +22,12 @@ const authMiddleware = asyncHandler(
         next();
       } catch (error) {
         console.log(error);
-        res.status(401).send("Not authorized, token failed");
+        res.status(401).json("Not authorized, token failed");
       }
     }
 
     if (!token) {
-      res.status(401).send("Not authorized, no token provided");
+      res.status(401).json("Not authorized, no token provided");
     }
   }
 );
@@ -39,9 +39,10 @@ const adminMiddleware = (
 ) => {
   // If the user is an admin, continue with the request to the restricted route
   if (req.user && req.user.isAdmin) {
+    console.log(req.user);
     next();
   } else {
-    res.status(401).send("Not authorized, not an admin");
+    res.status(401).json("Not authorized, not an admin");
   }
 };
 
