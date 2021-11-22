@@ -39,7 +39,6 @@ const adminMiddleware = (
 ) => {
   // If the user is an admin, continue with the request to the restricted route
   if (req.user && req.user.isAdmin) {
-    console.log(req.user);
     next();
   } else {
     res.status(401).json("Not authorized, not an admin");
