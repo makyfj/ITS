@@ -18,6 +18,15 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = decoded;
   const user = await UserModel.findById(userId);
 
+  const caseHistory = {
+    category,
+    description,
+    state,
+    dateCreated: new Date(),
+    tags,
+    currentAssignee,
+  };
+
   const ticket = new TicketModel({
     category,
     description,
@@ -26,6 +35,7 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
     tags,
     user: user._id,
     currentAssignee,
+    caseHistory: caseHistory,
   });
 
   const createTicket = await ticket.save({});
