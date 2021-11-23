@@ -60,7 +60,7 @@ const UserProfile = () => {
     };
 
     getUserInfo();
-  }, [userId]);
+  }, [userId, config]);
 
   return (
     <div className="userId">
@@ -83,9 +83,11 @@ const UserProfile = () => {
           Delete Account
         </button>
       </form>
-      <Link href="/tickets">
-        <p>Create a ticket</p>
-      </Link>
+      <button className="createTicket">
+        <Link href="/tickets" passHref={true}>
+          Create ticket
+        </Link>
+      </button>
     </div>
   );
 };

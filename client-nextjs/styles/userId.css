@@ -16,3 +16,8 @@
   padding: 1rem;
   color: #fff;
 }
+
+.createTicket {
+  margin: 2rem auto;
+  display: flex;
+}
