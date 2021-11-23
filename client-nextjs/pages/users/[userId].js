@@ -5,7 +5,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/users";
 
-const User = () => {
+const UserProfile = () => {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -90,4 +90,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserProfile;
