@@ -1,0 +1,19 @@
+@import "fonts.css";
+
+/*Styling for the contact page*/
+/*styling main container*/
+div.contact_container{
+    background-color: rgb(77, 175, 255);
+    margin: 0px;
+    padding: 1%;
+}
+
+div.contact_container h1{
+    font-family: 'open_sans_bold';
+    text-decoration: underline;
+}
+
+div.contact_container p{
+    font-family: 'open_sans_light';
+    font-size: 20px;
+}
