@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -10,12 +11,25 @@ const User = () => {
   const [email, setEmail] = useState("");
   const { userId } = router.query;
 
+  // Checks token to verify is user is authorized to login
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   const updateAccount = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios.put(`${API_URL}/${userId}`, {
-      name,
-      email,
-    });
+
+    const { data, status } = await axios.put(
+      `${API_URL}/${userId}`,
+      {
+        name,
+        email,
+      },
+      config
+    );
 
     if (status === 200) {
       const { name, email } = data;
@@ -26,7 +40,7 @@ const User = () => {
 
   const deleteAccount = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios.delete(`${API_URL}/${userId}`);
+    const { data, status } = await axios.delete(`${API_URL}/${userId}`, config);
 
     if (status === 200) {
       console.log(data);
@@ -36,7 +50,7 @@ const User = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const { data, status } = await axios.get(`${API_URL}/${userId}`);
+      const { data, status } = await axios.get(`${API_URL}/${userId}`, config);
 
       if (status === 200) {
         const { name, email } = data;
@@ -49,7 +63,7 @@ const User = () => {
   }, [userId]);
 
   return (
-    <div>
+    <div className="userId">
       <h1>User Info</h1>
       <form>
         <input
@@ -69,6 +83,9 @@ const User = () => {
           Delete Account
         </button>
       </form>
+      <Link href="/tickets">
+        <p>Create a ticket</p>
+      </Link>
     </div>
   );
 };

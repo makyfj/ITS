@@ -17,8 +17,10 @@ router.get("/all", adminMiddleware, getUsers);
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/:id", authMiddleware, adminMiddleware, getUser);
-router.put("/:id", authMiddleware, adminMiddleware, updateUser);
-router.delete("/:id", authMiddleware, adminMiddleware, deleteUser);
+router
+  .route("/:id")
+  .get(authMiddleware, getUser)
+  .put(authMiddleware, updateUser)
+  .delete(authMiddleware, deleteUser);
 
 export { router as userRoutes };

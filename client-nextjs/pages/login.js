@@ -18,7 +18,7 @@ const Login = () => {
     });
 
     if (status === 200) {
-      console.log(data);
+      localStorage.setItem("token", data.token);
       const { _id } = data;
       router.push(`/users/${_id}`);
     }
@@ -28,15 +28,18 @@ const Login = () => {
     <div className="login_container">
       <h1>Login</h1>
       <form>
-        <label>Username/Email: </label><br />
+        <label>Email: </label>
+        <br />
         <input
           type="email"
-          placeholder="Username/Email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        /><br />
+        />
+        <br />
 
-        <label>Password: </label><br />
+        <label>Password: </label>
+        <br />
         <input
           type="password"
           placeholder="Password"

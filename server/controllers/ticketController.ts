@@ -12,7 +12,7 @@ import UserModel from "../models/userModel";
 // @route POST /api/tickets/ticket
 // @access Private
 const createTicket = asyncHandler(async (req: Request, res: Response) => {
-  const { category, description, state, tags, currentAssignee } = req.body;
+  const { category, description, tags, currentAssignee } = req.body;
 
   const token = req.headers.authorization.split(" ")[1];
   const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +22,6 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
   const caseHistory = {
     category,
     description,
-    state,
     dateCreated: new Date(),
     tags,
     currentAssignee,
@@ -32,7 +31,6 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
     category,
     description,
     dateCreated: new Date(),
-    state,
     tags,
     user: user._id,
     currentAssignee,
