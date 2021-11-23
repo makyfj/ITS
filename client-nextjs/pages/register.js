@@ -26,27 +26,35 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register_container">
       <h1>Register</h1>
       <form>
+        <label>Name: </label><br />
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        <br />
+
+        <label>Email: </label><br />
         <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <br />
+
+        <label>Password: </label><br />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
         <button type="submit" onClick={handleSubmit}>
           Register
         </button>
