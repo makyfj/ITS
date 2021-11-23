@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/dist/client/router";
 
 const API_URL = "http://localhost:5000/api/tickets";
 
@@ -8,6 +9,8 @@ const Ticket = () => {
   const [description, setDescription] = useState("");
   const [ticketTags, setTags] = useState("");
   const [currentAssignee, setCurrentAssignee] = useState("");
+
+  const router = useRouter();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -28,7 +31,11 @@ const Ticket = () => {
       config
     );
 
-    console.log(data);
+    if (status === 201) {
+      const { _id } = data;
+      console.log(data);
+      router.push(`/tickets/${_id}`);
+    }
   };
 
   return (

@@ -60,7 +60,7 @@ const UserProfile = () => {
     };
 
     getUserInfo();
-  }, [userId, config]);
+  }, [userId]);
 
   return (
     <div className="userId">
