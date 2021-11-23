@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 import { UserIdRequest } from "../interfaces/userIdRequest";
 import { UserRequest } from "../interfaces/userRequest";
@@ -70,21 +71,71 @@ const getTicket = asyncHandler(async (req: Request, res: Response) => {
 // @desc Update a ticket by id
 // @route PUT /api/tickets/:id
 // @access Private/Admin
-const updateTicket = asyncHandler(async (req: Request, res: Response) => {});
+const updateTicket = asyncHandler(async (req: Request, res: Response) => {
+  const ticket = await TicketModel.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (ticket) {
+    res.json({
+      _id: ticket._id,
+      category: ticket.category,
+      description: ticket.description,
+      dateCreated: ticket.dateCreated,
+      dateResolved: ticket.dateResolved,
+      state: ticket.state,
+      tags: ticket.tags,
+      user: ticket.user,
+      currentAssignee: ticket.currentAssignee,
+      caseHistory: ticket.caseHistory,
+    });
+  } else {
+    res.status(404).send("Ticket not found");
+  }
+});
 
 // @desc Delete a ticket by id
 // @route DELETE /api/tickets/:id
 // @access Private/Admin
-const deleteTicket = asyncHandler(async (req: Request, res: Response) => {});
+const deleteTicket = asyncHandler(async (req: Request, res: Response) => {
+  const ticket = await TicketModel.findByIdAndDelete(req.params.id);
+
+  if (ticket) {
+    res.status(200).send("Ticket Deleted");
+  } else {
+    res.status(404).send("Ticket not found");
+  }
+});
 
 // @desc Get all tickets of a single user
-// @route GET /api/tickets/user
+// @route GET /api/tickets/user/:id
 // @access Private/Admin
-const getUserTickets = asyncHandler(async (req: Request, res: Response) => {});
+const getUserTickets = asyncHandler(async (req: Request, res: Response) => {
+  // const userId = new mongoose.Types.ObjectId(req.params.id);
+  // const userTickets = await TicketModel.find( user: req.params.id );
+  // console.log(req.params.id);
+  // console.log(userId);
+  // res.status(200).json(userTickets);
+});
 
 // @desc Get all tickets
 // @route GET /api/tickets
 // @access Private/Admin
-const getAllTickets = asyncHandler(async (req: Request, res: Response) => {});
+const getAllTickets = asyncHandler(async (req: Request, res: Response) => {
+  const tickets = await TicketModel.find({});
 
-export { createTicket, getTicket };
+  if (tickets) {
+    res.status(200).json(tickets);
+  } else {
+    res.status(404).send("Tickets not found");
+  }
+});
+
+export {
+  createTicket,
+  getTicket,
+  updateTicket,
+  deleteTicket,
+  getAllTickets,
+  getUserTickets,
+};
