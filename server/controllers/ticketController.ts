@@ -111,11 +111,14 @@ const deleteTicket = asyncHandler(async (req: Request, res: Response) => {
 // @route GET /api/tickets/user/:id
 // @access Private/Admin
 const getUserTickets = asyncHandler(async (req: Request, res: Response) => {
-  // const userId = new mongoose.Types.ObjectId(req.params.id);
-  // const userTickets = await TicketModel.find( user: req.params.id );
-  // console.log(req.params.id);
-  // console.log(userId);
-  // res.status(200).json(userTickets);
+  const user = await UserModel.findById(req.params.id);
+  const tickets = await TicketModel.find({ user: user._id });
+
+  if (tickets) {
+    res.status(200).json(tickets);
+  } else {
+    res.status(404).send("Tickets not found");
+  }
 });
 
 // @desc Get all tickets

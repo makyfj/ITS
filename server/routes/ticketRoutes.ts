@@ -6,6 +6,7 @@ import {
   getTicket,
   updateTicket,
   getUserTickets,
+  getAllTickets,
 } from "../controllers/ticketController";
 import { adminMiddleware, authMiddleware } from "../middleware/authMiddleware";
 
@@ -13,6 +14,7 @@ const router = express.Router();
 
 // Only admin and authorized user is able to access ticketRoutes
 
+router.get("", adminMiddleware, getAllTickets);
 router.post("/ticket", authMiddleware, createTicket);
 router
   .route("/:id")
