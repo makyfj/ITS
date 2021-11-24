@@ -66,23 +66,31 @@ const UserProfile = () => {
     <div className="userId">
       <h1>User Info</h1>
       <form>
+        <label>Name: </label>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={name}
         />
+        <br />
+
+        <label>Email: </label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={email}
         />
+
+        <br />
         <button type="submit" onClick={updateAccount}>
           Update Account
         </button>
+
         <button type="submit" onClick={deleteAccount}>
           Delete Account
         </button>
       </form>
+      <hr />
       <button className="createTicket">
         <Link href="/tickets" passHref={true}>
           Create ticket

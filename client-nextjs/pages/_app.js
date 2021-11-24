@@ -1,11 +1,8 @@
 import "../styles/globals.css";
-import "../styles/layout.css";
-import "../styles/login.css";
-import "../styles/home.css";
-import "../styles/contact.css";
-import "../styles/register.css";
+
+import "../styles/styles.css";
 import "../styles/ticket.css";
-import "../styles/userId.css";
+//import "../styles/userId.css";
 
 import Layout from "../components/layout";
 
