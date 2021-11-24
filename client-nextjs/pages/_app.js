@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 
 import "../styles/styles.css";
-import "../styles/ticket.css";
+//import "../styles/ticket.css";
 //import "../styles/userId.css";
 
 import Layout from "../components/layout";

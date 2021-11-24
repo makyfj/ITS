@@ -197,3 +197,56 @@ div.userId hr{
     height: 2px;
     background-image: linear-gradient(to right, rgba(160, 212, 255, 0), rgb(152, 209, 255), rgba(160, 212, 255, 0));
 }
+
+/*===================================================*/
+/*Styling ticket creation page*/
+.ticket {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(77, 175, 255);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 1%;
+    margin: 4rem;
+}
+
+.ticket form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.ticket form label{
+    font-family: 'open_sans';
+    font-size: 20px;
+}
+
+.ticket form input, .ticket form textarea{
+    background-color: rgb(204, 232, 255);
+    font-family: 'open_sans_light';
+    font-size: 20px;
+}
+
+.ticket form button{
+    margin-top: 1%;
+    background-color: rgb(140, 203, 255);
+    padding: 2%;
+    border: 5px solid rgb(140, 203, 255);
+    font-family: 'open_sans';
+    font-size: 20px;
+}
+
+.ticket form button:hover{
+    background-color: rgb(11, 96, 165);
+    color: white;
+    transition-duration: 0.25s;
+    border: 5px outset rgb(11, 96, 165);
+    text-shadow: 0px 0px 10px rgb(112, 191, 255);
+}
+
+.ticket hr{
+    height: 3px;
+    width: 100%;
+    background-image: linear-gradient(to right, rgba(68, 171, 255, 0), rgb(146, 206, 255), rgba(68, 171, 255, 0));
+    border: none;
+}

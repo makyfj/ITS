@@ -41,12 +41,14 @@ const Ticket = () => {
   return (
     <div className="ticket">
       <form>
+        <label>Category: </label>
         <input
           type="text"
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
+        <label>Description: </label>
         <textarea
           type="text"
           rows="4"
@@ -54,12 +56,14 @@ const Ticket = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        <label>Tags: </label>
         <input
           type="text"
           placeholder="Tags"
           value={ticketTags}
           onChange={(e) => setTags(e.target.value)}
         />
+        <label>Current Assignee: </label>
         <input
           type="text"
           placeholder="Current Assignee"
@@ -67,6 +71,8 @@ const Ticket = () => {
           onChange={(e) => setCurrentAssignee(e.target.value)}
         />
 
+        <hr />
+        
         <button type="submit" onClick={submitHandler}>
           Create Ticket
         </button>
