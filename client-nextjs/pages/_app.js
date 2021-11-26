@@ -5,15 +5,22 @@ import "../styles/styles.css";
 //import "../styles/userId.css";
 
 import Layout from "../components/layout";
-import Auth from "../context/userContext";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { store } from "../app/store";
+
+let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Auth>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Auth>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>
+    </Provider>
   );
 }
 

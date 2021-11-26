@@ -1,14 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { UserContext } from "../context/userContext";
-
-const API_URL = "http://localhost:5000/api/users";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(UserContext);
 
   const router = useRouter();
 
@@ -20,8 +16,6 @@ const Login = () => {
     });
 
     if (status === 200) {
-      console.log(data);
-      login(data, data.token);
       const { _id } = data;
       router.push(`/users/${_id}`);
     }
