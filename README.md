@@ -14,6 +14,7 @@ Organizational IT support is a common example, where a request leads to a genera
 - Express
 - TypeScript
 - JWT
+- Express Async Handler
 
 ## Frontend
 
