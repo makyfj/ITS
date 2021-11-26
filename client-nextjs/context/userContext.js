@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 import { API_URL } from "../constants/apiURL";
 
 export const UserContext = createContext();
 
 const Auth = ({ children }) => {
-  const [userInfo, setUserInfo] = useState(localStorage.getItem("userInfo"));
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [userInfo, setUserInfo] = useState(null);
+  const [token, setToken] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
 
   const login = (userInfo, token) => {
@@ -30,14 +31,15 @@ const Auth = ({ children }) => {
     }
 
     const { _id } = userInfo;
-    config = {
+    const config = {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
     };
 
-    const { status } = axios.get(`${API_URL}/${_id}`, config);
+    const { status, data } = axios.get(`${API_URL}/${_id}`, config);
+    setUserInfo(data);
     if (status === 200) {
       setAuthenticated(true);
     }
