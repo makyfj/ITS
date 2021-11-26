@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { API_URL } from "../constants/apiURL";
 
 export const UserContext = createContext();
 
@@ -22,6 +23,26 @@ const Auth = ({ children }) => {
     setToken(null);
     setAuthenticated(false);
   };
+
+  useEffect(() => {
+    if (!token && !userInfo) {
+      return;
+    }
+
+    const { _id } = userInfo;
+    config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    const { status } = axios.get(`${API_URL}/${_id}`, config);
+    if (status === 200) {
+      setAuthenticated(true);
+    }
+  }, [token, userInfo]);
+
   return (
     <UserContext.Provider
       value={{ userInfo, token, authenticated, logout, login }}

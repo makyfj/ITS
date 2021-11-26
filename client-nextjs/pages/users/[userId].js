@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/users";
+import { API_URL } from "../../constants/apiURL";
 
 const UserProfile = () => {
   const router = useRouter();

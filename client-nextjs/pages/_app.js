@@ -5,12 +5,15 @@ import "../styles/styles.css";
 //import "../styles/userId.css";
 
 import Layout from "../components/layout";
+import Auth from "../context/userContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Auth>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Auth>
   );
 }
 
