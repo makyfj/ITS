@@ -1,35 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/users";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, clearStatus } from "../app/features/auth/authSlice";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
+  const { isSuccess } = useSelector((state) => state.auth.status);
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios.post(`${API_URL}/register`, {
-      name,
-      email,
-      password,
-    });
+    dispatch(registerUser({ name, password, email }));
+  };
 
-    if (status === 201) {
-      console.log(data);
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(clearStatus());
       router.push("/");
     }
-  };
+  }, [router, isSuccess, dispatch]);
 
   return (
     <div className="register_container">
       <h1>Register</h1>
       <form>
-        <label>Name: </label><br />
+        <label>Name: </label>
+        <br />
         <input
           type="text"
           placeholder="Name"
@@ -38,7 +40,8 @@ const Register = () => {
         />
         <br />
 
-        <label>Email: </label><br />
+        <label>Email: </label>
+        <br />
         <input
           type="email"
           placeholder="Email"
@@ -47,7 +50,8 @@ const Register = () => {
         />
         <br />
 
-        <label>Password: </label><br />
+        <label>Password: </label>
+        <br />
         <input
           type="password"
           placeholder="Password"
