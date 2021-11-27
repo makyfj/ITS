@@ -17,8 +17,7 @@ const authMiddleware = asyncHandler(
 
         const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = await UserModel.findById(decoded.userId).select("-password");
-
+        req.user = await UserModel.findById(decoded.userId);
         next();
       } catch (error) {
         console.log(error);
@@ -45,9 +44,7 @@ const adminMiddleware = asyncHandler(
 
         const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
 
-        const user = await UserModel.findById(decoded.userId).select(
-          "-password"
-        );
+        const user = await UserModel.findById(decoded.userId);
 
         // If the user is an admin, continue with the request to the restricted route
         if (user && user.isAdmin) {

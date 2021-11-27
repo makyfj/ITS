@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API_URL from "../constants/apiURL";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../app/features/auth/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.auth.status);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios.post(`${API_URL}/login`, {
-      email,
-      password,
-    });
-
-    if (status === 200) {
-      const { _id } = data;
-      router.push(`/users/${_id}`);
-    }
+    dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(`/users/${userInfo._id}`);
+    }
+  }, [isSuccess, router, userInfo._id]);
 
   return (
     <div className="login_container">

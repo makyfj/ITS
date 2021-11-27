@@ -25,6 +25,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
+      password: newUser.password,
       isAdmin: newUser.isAdmin,
       // Sends a token with user data
       token: generateToken(newUser._id),
@@ -47,6 +48,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      password: user.password,
       isAdmin: user.isAdmin,
       // Sends a token with user data
       token: generateToken(user._id),
@@ -71,13 +73,13 @@ const getUsers = asyncHandler(async (req: Request, res: Response) => {
 // @access Private
 const getUser = asyncHandler(async (req: Request, res: Response) => {
   // get user without password
-  const user = await UserModel.findById(req.params.id).select("-password");
-
+  const user = await UserModel.findById(req.params.id);
   if (user) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      password: user.password,
       isAdmin: user.isAdmin,
     });
   } else {
@@ -98,6 +100,7 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      password: user.password,
       isAdmin: user.isAdmin,
     });
   } else {
