@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
 
 import UserModel from "../models/userModel";
 import generateToken from "../utils/generateToken";
@@ -72,8 +73,8 @@ const getUsers = asyncHandler(async (req: Request, res: Response) => {
 // @route GET /api/users/:id
 // @access Private
 const getUser = asyncHandler(async (req: Request, res: Response) => {
-  // get user without password
   const user = await UserModel.findById(req.params.id);
+
   if (user) {
     res.json({
       _id: user._id,
@@ -81,6 +82,7 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       password: user.password,
       isAdmin: user.isAdmin,
+      token: user.token,
     });
   } else {
     res.status(404).send("User not found");
@@ -102,6 +104,7 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       password: user.password,
       isAdmin: user.isAdmin,
+      token: user.token,
     });
   } else {
     res.status(404).send("User not found");

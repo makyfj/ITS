@@ -47,14 +47,14 @@ export const loginUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
-  async ({ id }, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+      const { auth } = thunkAPI.getState();
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth.userInfo.token}`,
         },
       };
       const { data, status } = await axios.get(
@@ -68,7 +68,7 @@ export const getUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(data);
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(data);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -130,6 +130,22 @@ const authSlice = createSlice({
       state.status.isError = false;
     });
     builder.addCase(loginUser.rejected, (state, { error }) => {
+      state.status.isFetching = false;
+      state.status.isError = true;
+      state.status.errorMessage = error.message;
+    });
+
+    // Get User
+    builder.addCase(getUser.pending, (state) => {
+      state.status.isFetching = true;
+    });
+    builder.addCase(getUser.fulfilled, (state, { payload }) => {
+      state.userInfo = payload;
+      state.status.isSuccess = true;
+      state.status.isFetching = false;
+      state.status.isError = false;
+    });
+    builder.addCase(getUser.rejected, (state, { error }) => {
       state.status.isFetching = false;
       state.status.isError = true;
       state.status.errorMessage = error.message;
