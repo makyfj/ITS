@@ -31,6 +31,35 @@ export const createTicket = createAsyncThunk(
   }
 );
 
+export const getTicket = createAsyncThunk(
+  "ticket/getTicket",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/tickets/${_id}`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   ticketInfo: {
     _id: "",
@@ -105,6 +134,22 @@ const ticketSlice = createSlice({
       state.ticketStatus.isError = false;
     });
     builder.addCase(createTicket.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
+
+    // Get Ticket
+    builder.addCase(getTicket.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(getTicket.fulfilled, (state, { payload }) => {
+      state.ticketInfo = payload;
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(getTicket.rejected, (state, { payload }) => {
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isError = true;
       state.ticketStatus.errorMessage = payload;

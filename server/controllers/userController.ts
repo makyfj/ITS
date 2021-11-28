@@ -91,17 +91,26 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
 // @route PUT /api/users/:id
 // @access Private
 const updateUser = asyncHandler(async (req: Request, res: Response) => {
-  const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const user = await UserModel.findById(req.params.id);
 
   if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+    if (req.body.password) {
+      user.password = req.body.password || user.password;
+    }
+
+    const updatedUser = await user.save();
+
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      isAdmin: user.isAdmin,
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      password: updatedUser.password,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404).send("User not found");

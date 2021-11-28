@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
-import { createTicket } from "../../app/features/ticket/ticketSlice";
-
-const API_URL = "http://localhost:5000/api/tickets";
+import { createTicket, getTicket } from "../../app/features/ticket/ticketSlice";
 
 const Ticket = () => {
   const [category, setCategory] = useState("");
@@ -15,6 +12,7 @@ const Ticket = () => {
   const dispatch = useDispatch();
 
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+  const { _id } = useSelector((state) => state.ticket.ticketInfo);
 
   const router = useRouter();
 
@@ -23,31 +21,14 @@ const Ticket = () => {
     const tags = ticketTags.split(",");
 
     dispatch(createTicket({ category, description, tags, currentAssignee }));
+  };
 
-    // Get ticket id to redirect to /tickets/id
+  useEffect(() => {
     if (isSuccess) {
+      dispatch(getTicket(_id));
       router.push(`/tickets/${_id}`);
     }
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //   },
-    // };
-
-    // const { data, status } = await axios.post(
-    //   `
-    //   ${API_URL}/ticket`,
-    //   { category, description, tags, currentAssignee },
-    //   config
-    // );
-
-    // if (status === 201) {
-    //   const { _id } = data;
-    //   console.log(data);
-    //   router.push(`/tickets/${_id}`);
-    // }
-  };
+  }, [_id, dispatch, isSuccess, router]);
 
   return (
     <div className="ticket">
@@ -58,6 +39,7 @@ const Ticket = () => {
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          required
         />
         <label>Description: </label>
         <textarea
@@ -66,6 +48,7 @@ const Ticket = () => {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
         />
         <label>Tags: </label>
         <input
@@ -73,6 +56,7 @@ const Ticket = () => {
           placeholder="Tags"
           value={ticketTags}
           onChange={(e) => setTags(e.target.value)}
+          required
         />
         <label>Current Assignee: </label>
         <input
@@ -80,6 +64,7 @@ const Ticket = () => {
           placeholder="Current Assignee"
           value={currentAssignee}
           onChange={(e) => setCurrentAssignee(e.target.value)}
+          required
         />
 
         <hr />

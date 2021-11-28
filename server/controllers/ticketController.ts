@@ -70,22 +70,32 @@ const getTicket = asyncHandler(async (req: Request, res: Response) => {
 // @route PUT /api/tickets/:id
 // @access Private/Admin
 const updateTicket = asyncHandler(async (req: Request, res: Response) => {
-  const ticket = await TicketModel.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const ticket = await TicketModel.findById(req.params.id);
 
   if (ticket) {
+    ticket.category = req.body.category || ticket.category;
+    ticket.description = req.body.category || ticket.category;
+    ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
+    ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
+    ticket.state = req.body.state || ticket.state;
+    ticket.tags = req.body.tags || ticket.tags;
+    ticket.user = req.body.user || ticket.user;
+    ticket.currentAssignee = req.body.currentAssignee || ticket.currentAssignee;
+    ticket.caseHistory = req.body.caseHistory || ticket.caseHistory;
+
+    const updatedTicket = await ticket.save();
+
     res.json({
-      _id: ticket._id,
-      category: ticket.category,
-      description: ticket.description,
-      dateCreated: ticket.dateCreated,
-      dateResolved: ticket.dateResolved,
-      state: ticket.state,
-      tags: ticket.tags,
-      user: ticket.user,
-      currentAssignee: ticket.currentAssignee,
-      caseHistory: ticket.caseHistory,
+      _id: updatedTicket._id,
+      category: updatedTicket.category,
+      description: updatedTicket.description,
+      dateCreated: updatedTicket.dateCreated,
+      dateResolved: updatedTicket.dateResolved,
+      state: updatedTicket.state,
+      tags: updatedTicket.tags,
+      user: updatedTicket.user,
+      currentAssignee: updatedTicket.currentAssignee,
+      caseHistory: updatedTicket.caseHistory,
     });
   } else {
     res.status(404).send("Ticket not found");
