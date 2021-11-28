@@ -1,252 +1,268 @@
-@import 'fonts.css';
+@import "fonts.css";
 
 /*UNIVERSAL SELECTORS*/
 body {
-    background-color: rgb(11, 96, 165);
-    margin: 0px;
+  background-color: rgb(11, 96, 165);
+  margin: 0px;
 }
 
 /*===================================================*/
 /*Styling the layout*/
 div.navbar {
-    background-color: rgb(15, 115, 197);
-    padding: 2%;
-    margin-bottom: 2%;
+  background-color: rgb(15, 115, 197);
+  padding: 2%;
+  margin-bottom: 2%;
 }
 
 div.navbar nav {
-    color: white;
-    font-family: "open_sans";
-    font-size: 20px;
-    text-align: end;
+  color: white;
+  font-family: "open_sans";
+  font-size: 20px;
+}
+
+div.navbar nav ul {
+  display: flex;
+  justify-content: space-between;
 }
 
 div.navbar nav a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 footer {
-    padding: 2rem;
-    font-size: 1.5rem;
-    text-align: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
-  
+
 /*===================================================*/
 /* Styling for the home page*/
-div.outer{
-    background-color: rgb(77, 175, 255);
-    margin: 0px;
-    padding: 1%;
+div.outer {
+  background-color: rgb(77, 175, 255);
+  margin: 0px;
+  padding: 1%;
 }
 
-div.outer h1{
-    font-family: 'open_sans_bold';
-    text-decoration: underline;
+div.outer h1 {
+  font-family: "open_sans_bold";
+  text-decoration: underline;
 }
 
-div.aboutBloc{
-    background-color: rgb(147, 206, 255);
-    margin: 0px;
-    padding: 1%;
-    border: 5px outset rgb(147, 206, 255);
+div.aboutBloc {
+  background-color: rgb(147, 206, 255);
+  margin: 0px;
+  padding: 1%;
+  border: 5px outset rgb(147, 206, 255);
 }
 
-div.aboutBloc h1{
-    font-family: 'open_sans';
-    font-size: 30px;
+div.aboutBloc h1 {
+  font-family: "open_sans";
+  font-size: 30px;
 }
 
-div.aboutBloc p{
-    font-family: 'open_sans_light';
-    font-size: 25px;
+div.aboutBloc p {
+  font-family: "open_sans_light";
+  font-size: 25px;
 }
 
 /*===================================================*/
 /*Styling for login page*/
-div.login_container{
-    background-color: rgb(77, 175, 255);
-    margin: 0px;
-    padding: 1%;
+div.login_container {
+  background-color: rgb(77, 175, 255);
+  margin: 0px;
+  padding: 1%;
 }
 
-div.login_container h1{
-    font-family: 'open_sans_bold';
-    text-decoration: underline;
+div.login_container h1 {
+  font-family: "open_sans_bold";
+  text-decoration: underline;
 }
 
-div.login_container form label{
-    font-family: 'open_sans';
-    font-size: 20px;
+div.login_container form label {
+  font-family: "open_sans";
+  font-size: 20px;
 }
 
-div.login_container form input{
-    font-family: 'open_sans_light';
-    font-size: 20px;
-    box-sizing: content-box;
-    margin-bottom: 1%;
+div.login_container form input {
+  font-family: "open_sans_light";
+  font-size: 20px;
+  box-sizing: content-box;
+  margin-bottom: 1%;
 }
 
-div.login_container form button{
-    font-family: 'open_sans';
-    font-size: 25px;
-    box-sizing: border-box;
-    border: 5px outset rgb(160, 212, 255);
-    background-color: rgb(160, 212, 255);
+div.login_container form button {
+  font-family: "open_sans";
+  font-size: 25px;
+  box-sizing: border-box;
+  border: 5px outset rgb(160, 212, 255);
+  background-color: rgb(160, 212, 255);
 }
 
 /*===================================================*/
 /*Styling register page*/
-div.register_container{
-    background-color: rgb(77, 175, 255);
-    margin: 0px;
-    padding: 1%;
+div.register_container {
+  background-color: rgb(77, 175, 255);
+  margin: 0px;
+  padding: 1%;
 }
 
-div.register_container h1{
-    font-family: 'open_sans_bold';
-    text-decoration: underline;
+div.register_container h1 {
+  font-family: "open_sans_bold";
+  text-decoration: underline;
 }
 
-div.register_container form label{
-    font-family: 'open_sans';
-    font-size: 20px;
+div.register_container form label {
+  font-family: "open_sans";
+  font-size: 20px;
 }
 
-div.register_container form input{
-    font-family: 'open_sans_light';
-    font-size: 20px;
-    box-sizing: content-box;
-    margin-bottom: 1%;
+div.register_container form input {
+  font-family: "open_sans_light";
+  font-size: 20px;
+  box-sizing: content-box;
+  margin-bottom: 1%;
 }
 
-div.register_container form button{
-    font-family: 'open_sans';
-    font-size: 25px;
-    box-sizing: border-box;
-    border: 5px outset rgb(160, 212, 255);
-    background-color: rgb(160, 212, 255);
+div.register_container form button {
+  font-family: "open_sans";
+  font-size: 25px;
+  box-sizing: border-box;
+  border: 5px outset rgb(160, 212, 255);
+  background-color: rgb(160, 212, 255);
 }
 
 /*===================================================*/
 /*Styling contact page*/
-div.contact_container{
-    background-color: rgb(77, 175, 255);
-    margin: 0px;
-    padding: 1%;
+div.contact_container {
+  background-color: rgb(77, 175, 255);
+  margin: 0px;
+  padding: 1%;
 }
 
-div.contact_container h1{
-    font-family: 'open_sans_bold';
-    text-decoration: underline;
+div.contact_container h1 {
+  font-family: "open_sans_bold";
+  text-decoration: underline;
 }
 
-div.contact_container p{
-    font-family: 'open_sans_light';
-    font-size: 20px;
+div.contact_container p {
+  font-family: "open_sans_light";
+  font-size: 20px;
 }
 
 /*===================================================*/
 /*Styling userID page*/
-div.userId{
-    background-color: rgb(77, 175, 255);
-    margin: 0px;
-    padding: 1%;
-    text-align: center;
+div.userId {
+  background-color: rgb(77, 175, 255);
+  margin: 0px;
+  padding: 1%;
+  text-align: center;
 }
 
-div.userId h1{
-    font-family: 'open_sans_bold';
-    text-decoration: underline;
+div.userId h1 {
+  font-family: "open_sans_bold";
+  text-decoration: underline;
 }
 
-div.userId form label{
-    font-family: 'open_sans';
-    font-size: 20px;
+div.userId form label {
+  font-family: "open_sans";
+  font-size: 20px;
 }
 
-div.userId form input{
-    font-family: 'open_sans_light';
-    font-size: 20px;
-    box-sizing: content-box;
-    margin-bottom: 1%;
+div.userId form input {
+  font-family: "open_sans_light";
+  font-size: 20px;
+  box-sizing: content-box;
+  margin-bottom: 1%;
 }
 
-div.userId button{
-    font-family: 'open_sans';
-    font-size: 25px;
-    box-sizing: border-box;
-    margin-left: 1%;
-    margin-bottom: 1%;
-    width: 250px;
-    border: 5px outset rgb(160, 212, 255);
-    background-color: rgb(160, 212, 255);
+div.userId button {
+  font-family: "open_sans";
+  font-size: 25px;
+  box-sizing: border-box;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  width: 250px;
+  border: 5px outset rgb(160, 212, 255);
+  background-color: rgb(160, 212, 255);
 }
 
-div.userId button.createTicket{
-    font-family: 'open_sans';
-    font-size: 25px;
-    box-sizing: border-box;
-    margin-top: 1%;
-    width: 250px;
-    border: 5px outset rgb(160, 212, 255);
-    background-color: rgb(160, 212, 255);
+div.userId button.createTicket {
+  font-family: "open_sans";
+  font-size: 25px;
+  box-sizing: border-box;
+  margin-top: 1%;
+  width: 250px;
+  border: 5px outset rgb(160, 212, 255);
+  background-color: rgb(160, 212, 255);
 }
 
-div.userId hr{
-    border: none;
-    height: 2px;
-    background-image: linear-gradient(to right, rgba(160, 212, 255, 0), rgb(152, 209, 255), rgba(160, 212, 255, 0));
+div.userId hr {
+  border: none;
+  height: 2px;
+  background-image: linear-gradient(
+    to right,
+    rgba(160, 212, 255, 0),
+    rgb(152, 209, 255),
+    rgba(160, 212, 255, 0)
+  );
 }
 
 /*===================================================*/
 /*Styling ticket creation page*/
 .ticket {
-    display: flex;
-    justify-content: center;
-    background-color: rgb(77, 175, 255);
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 1%;
-    margin: 4rem;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(77, 175, 255);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 1%;
+  margin: 4rem;
 }
 
 .ticket form {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
-.ticket form label{
-    font-family: 'open_sans';
-    font-size: 20px;
+.ticket form label {
+  font-family: "open_sans";
+  font-size: 20px;
 }
 
-.ticket form input, .ticket form textarea{
-    background-color: rgb(204, 232, 255);
-    font-family: 'open_sans_light';
-    font-size: 20px;
+.ticket form input,
+.ticket form textarea {
+  background-color: rgb(204, 232, 255);
+  font-family: "open_sans_light";
+  font-size: 20px;
 }
 
-.ticket form button{
-    margin-top: 1%;
-    background-color: rgb(140, 203, 255);
-    padding: 2%;
-    border: 5px solid rgb(140, 203, 255);
-    font-family: 'open_sans';
-    font-size: 20px;
+.ticket form button {
+  margin-top: 1%;
+  background-color: rgb(140, 203, 255);
+  padding: 2%;
+  border: 5px solid rgb(140, 203, 255);
+  font-family: "open_sans";
+  font-size: 20px;
 }
 
-.ticket form button:hover{
-    background-color: rgb(11, 96, 165);
-    color: white;
-    transition-duration: 0.25s;
-    border: 5px outset rgb(11, 96, 165);
-    text-shadow: 0px 0px 10px rgb(112, 191, 255);
+.ticket form button:hover {
+  background-color: rgb(11, 96, 165);
+  color: white;
+  transition-duration: 0.25s;
+  border: 5px outset rgb(11, 96, 165);
+  text-shadow: 0px 0px 10px rgb(112, 191, 255);
 }
 
-.ticket hr{
-    height: 3px;
-    width: 100%;
-    background-image: linear-gradient(to right, rgba(68, 171, 255, 0), rgb(146, 206, 255), rgba(68, 171, 255, 0));
-    border: none;
+.ticket hr {
+  height: 3px;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(68, 171, 255, 0),
+    rgb(146, 206, 255),
+    rgba(68, 171, 255, 0)
+  );
+  border: none;
 }
+

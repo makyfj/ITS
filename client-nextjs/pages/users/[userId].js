@@ -20,7 +20,6 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
-  const { isSuccess } = useSelector((state) => state.auth.status);
 
   const updateAccount = (e) => {
     e.preventDefault();
@@ -36,21 +35,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUser(userId));
-    if (isSuccess) {
-      setName(userInfo.name);
-      setEmail(userInfo.email);
-      setPassword(userInfo.password);
-      setIsAdmin(userInfo.isAdmin);
-    }
-  }, [
-    dispatch,
-    userId,
-    isSuccess,
-    userInfo.email,
-    userInfo.name,
-    userInfo.isAdmin,
-    userInfo.password,
-  ]);
+  }, [dispatch, userId]);
 
   return (
     <div className="userId">
@@ -61,7 +46,7 @@ const UserProfile = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={name}
+          placeholder={userInfo.name}
         />
         <br />
 
@@ -70,7 +55,7 @@ const UserProfile = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder={email}
+          placeholder={userInfo.email}
         />
 
         <br />
@@ -80,12 +65,12 @@ const UserProfile = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder={password}
+          placeholder="*********"
         />
 
         <br />
 
-        <label>isAdmin: {isAdmin ? "True" : "False"}</label>
+        <label>isAdmin: {userInfo.isAdmin ? "True" : "False"}</label>
 
         <br />
         <button type="submit" onClick={updateAccount}>

@@ -45,6 +45,11 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("token");
+});
+
 export const getUser = createAsyncThunk(
   "auth/getUser",
   async (userId, thunkAPI) => {
@@ -165,10 +170,22 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearStatus: (state) => {
-      state.status = {};
+      state.status = {
+        isSuccess: false,
+        isFetching: false,
+        isError: false,
+        errorMessage: "",
+      };
     },
     clearUserInfo: (state) => {
-      state.userInfo = {};
+      state.userInfo = {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
+        isAdmin: "",
+        token: "",
+      };
     },
   },
 
@@ -205,6 +222,29 @@ const authSlice = createSlice({
       state.status.errorMessage = payload;
     });
 
+    // Logout User
+    builder.addCase(logoutUser.pending, (state) => {
+      state.status.isFetching = true;
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.userInfo = {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
+        isAdmin: "",
+        token: "",
+      };
+      state.status.isSuccess = false;
+      state.status.isFetching = false;
+      state.status.isError = false;
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      state.status.isFetching = false;
+      state.status.isError = true;
+      state.status.errorMessage = "Can't logout";
+    });
+
     // Get User
     builder.addCase(getUser.pending, (state) => {
       state.status.isFetching = true;
@@ -217,6 +257,7 @@ const authSlice = createSlice({
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       state.status.isFetching = false;
+      state.status.isSuccess = false;
       state.status.isError = true;
       state.status.errorMessage = payload;
     });
