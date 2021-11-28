@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
+import { useDispatch, useSelector } from "react-redux";
+import { createTicket } from "../../app/features/ticket/ticketSlice";
 
 const API_URL = "http://localhost:5000/api/tickets";
 
@@ -10,32 +12,41 @@ const Ticket = () => {
   const [ticketTags, setTags] = useState("");
   const [currentAssignee, setCurrentAssignee] = useState("");
 
+  const dispatch = useDispatch();
+
+  const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+
   const router = useRouter();
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    console.log(category, description, ticketTags, currentAssignee);
     const tags = ticketTags.split(",");
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    };
+    dispatch(createTicket({ category, description, tags, currentAssignee }));
 
-    const { data, status } = await axios.post(
-      `
-      ${API_URL}/ticket`,
-      { category, description, tags, currentAssignee },
-      config
-    );
-
-    if (status === 201) {
-      const { _id } = data;
-      console.log(data);
+    // Get ticket id to redirect to /tickets/id
+    if (isSuccess) {
       router.push(`/tickets/${_id}`);
     }
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //   },
+    // };
+
+    // const { data, status } = await axios.post(
+    //   `
+    //   ${API_URL}/ticket`,
+    //   { category, description, tags, currentAssignee },
+    //   config
+    // );
+
+    // if (status === 201) {
+    //   const { _id } = data;
+    //   console.log(data);
+    //   router.push(`/tickets/${_id}`);
+    // }
   };
 
   return (
@@ -72,7 +83,7 @@ const Ticket = () => {
         />
 
         <hr />
-        
+
         <button type="submit" onClick={submitHandler}>
           Create Ticket
         </button>
