@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import axios from "axios";
-import { API_URL } from "../../constants/apiURL";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, updateUser } from "../../app/features/auth/authSlice";
+import {
+  getUser,
+  updateUser,
+  deleteUser,
+  clearStatus,
+} from "../../app/features/auth/authSlice";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -19,27 +22,16 @@ const UserProfile = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const { isSuccess } = useSelector((state) => state.auth.status);
 
-  // Checks token to verify is user is authorized to login
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  };
-
   const updateAccount = (e) => {
     e.preventDefault();
     dispatch(updateUser({ userId, name, email, password, isAdmin }));
   };
 
-  const deleteAccount = async (e) => {
+  const deleteAccount = (e) => {
     e.preventDefault();
-    const { data, status } = await axios.delete(`${API_URL}/${userId}`, config);
-
-    if (status === 200) {
-      console.log(data);
-      router.push("/");
-    }
+    dispatch(deleteUser(userId));
+    router.push("/");
+    dispatch(clearStatus());
   };
 
   useEffect(() => {

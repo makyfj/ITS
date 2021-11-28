@@ -47,7 +47,7 @@ export const loginUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "auth/getUser",
-  async (id, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
       const { auth } = thunkAPI.getState();
 
@@ -58,7 +58,7 @@ export const getUser = createAsyncThunk(
         },
       };
       const { data, status } = await axios.get(
-        `${process.env.API_URL}/api/users/${id}`,
+        `${process.env.API_URL}/api/users/${userId}`,
         config
       );
 
@@ -112,6 +112,37 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "auth/deleteUser",
+  async (userId, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.delete(
+        `${process.env.API_URL}/api/users/${userId}`,
+        config
+      );
+
+      if (status === 200) {
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("token");
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   userInfo: {
     _id: "",
@@ -152,10 +183,10 @@ const authSlice = createSlice({
       state.status.isFetching = false;
       state.status.isError = false;
     });
-    builder.addCase(registerUser.rejected, (state, { error }) => {
+    builder.addCase(registerUser.rejected, (state, { payload }) => {
       state.status.isFetching = false;
       state.status.isError = true;
-      state.status.errorMessage = error.message;
+      state.status.errorMessage = payload;
     });
 
     // Login User
@@ -168,10 +199,10 @@ const authSlice = createSlice({
       state.status.isFetching = false;
       state.status.isError = false;
     });
-    builder.addCase(loginUser.rejected, (state, { error }) => {
+    builder.addCase(loginUser.rejected, (state, { payload }) => {
       state.status.isFetching = false;
       state.status.isError = true;
-      state.status.errorMessage = error.message;
+      state.status.errorMessage = payload;
     });
 
     // Get User
@@ -184,10 +215,10 @@ const authSlice = createSlice({
       state.status.isFetching = false;
       state.status.isError = false;
     });
-    builder.addCase(getUser.rejected, (state, { error }) => {
+    builder.addCase(getUser.rejected, (state, { payload }) => {
       state.status.isFetching = false;
       state.status.isError = true;
-      state.status.errorMessage = error.message;
+      state.status.errorMessage = payload;
     });
 
     // Update User
@@ -200,10 +231,26 @@ const authSlice = createSlice({
       state.status.isFetching = false;
       state.status.isError = false;
     });
-    builder.addCase(updateUser.rejected, (state, { error }) => {
+    builder.addCase(updateUser.rejected, (state, { payload }) => {
       state.status.isFetching = false;
       state.status.isError = true;
-      state.status.errorMessage = error.message;
+      state.status.errorMessage = payload;
+    });
+
+    // Delete User
+    builder.addCase(deleteUser.pending, (state) => {
+      state.status.isFetching = true;
+    });
+    builder.addCase(deleteUser.fulfilled, (state) => {
+      state.userInfo = {};
+      state.status.isSuccess = true;
+      state.status.isFetching = false;
+      state.status.isError = false;
+    });
+    builder.addCase(deleteUser.rejected, (state, { payload }) => {
+      state.status.isFetching = false;
+      state.status.isError = true;
+      state.status.errorMessage = payload;
     });
   },
 });
