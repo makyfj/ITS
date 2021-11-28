@@ -17,7 +17,6 @@ const userSchema = new Schema<User>(
     email: { type: String, required: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
-    token: { type: String },
   },
   {
     timestamps: true,

@@ -82,7 +82,6 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       password: user.password,
       isAdmin: user.isAdmin,
-      token: user.token,
     });
   } else {
     res.status(404).send("User not found");
@@ -104,7 +103,6 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       password: user.password,
       isAdmin: user.isAdmin,
-      token: user.token,
     });
   } else {
     res.status(404).send("User not found");
