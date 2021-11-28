@@ -181,7 +181,7 @@ const initialState = {
     name: "",
     email: "",
     password: "",
-    isAdmin: "",
+    isAdmin: false,
     token: "",
   },
   status: {
@@ -196,7 +196,7 @@ const initialState = {
       name: "",
       email: "",
       password: "",
-      isAdmin: "",
+      isAdmin: false,
       token: "",
     },
   ],
@@ -220,7 +220,7 @@ const authSlice = createSlice({
         name: "",
         email: "",
         password: "",
-        isAdmin: "",
+        isAdmin: false,
         token: "",
       };
     },
@@ -269,7 +269,7 @@ const authSlice = createSlice({
         name: "",
         email: "",
         password: "",
-        isAdmin: "",
+        isAdmin: false,
         token: "",
       };
       state.status.isSuccess = false;

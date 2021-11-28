@@ -47,6 +47,19 @@ const Layout = ({ children }) => {
                     </li>
                   </div>
                 </div>
+                {userInfo.isAdmin && (
+                  <div className="dropdown">
+                    <button className="dropdownBtn">Admin</button>
+                    <div className="dropdownProfile">
+                      <li>
+                        <Link href="/admin/tickets">View Tickets</Link>
+                      </li>
+                      <li>
+                        <Link href="/admin/users">View Users</Link>
+                      </li>
+                    </div>
+                  </div>
+                )}
               </>
             ) : (
               <>
