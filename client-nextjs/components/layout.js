@@ -27,18 +27,26 @@ const Layout = ({ children }) => {
             </li>
             {userInfo.name !== "" ? (
               <>
-                <li className="userProfile">
-                  Hello!{" "}
-                  <Link href={`/users/${userInfo._id}`}>{userInfo.name}</Link>
-                </li>
-                <li>
-                  <Link href="/tickets">Create ticket</Link>
-                </li>
-                <li>
-                  <button type="submit" onClick={onLogoutHandler}>
-                    Logout
-                  </button>
-                </li>
+                <div className="dropdown">
+                  <button className="dropdownBtn">{userInfo.name}</button>
+                  <div className="dropdownProfile">
+                    <li>
+                      <Link href={`/users/${userInfo._id}`}>Profile</Link>
+                    </li>
+                    <li>
+                      <Link href="/tickets">Create ticket</Link>
+                    </li>
+                    <li>
+                      <button
+                        className="logoutBtn"
+                        type="submit"
+                        onClick={onLogoutHandler}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </div>
+                </div>
               </>
             ) : (
               <>
