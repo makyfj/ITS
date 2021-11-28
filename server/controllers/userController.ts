@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import mongoose from "mongoose";
 
 import UserModel from "../models/userModel";
 import generateToken from "../utils/generateToken";

@@ -11,6 +11,7 @@ import {
 import storage from "./sync-storage";
 
 import authSlice from "./features/auth/authSlice";
+import ticketSlice from "./features/ticket/ticketSlice";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authSlice,
+  ticket: ticketSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
