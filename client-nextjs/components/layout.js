@@ -27,7 +27,13 @@ const Layout = ({ children }) => {
             </li>
             {userInfo.name !== "" ? (
               <>
-                <li>Welcome! {userInfo.name}</li>
+                <li className="userProfile">
+                  Hello!{" "}
+                  <Link href={`/users/${userInfo._id}`}>{userInfo.name}</Link>
+                </li>
+                <li>
+                  <Link href="/tickets">Create ticket</Link>
+                </li>
                 <li>
                   <button type="submit" onClick={onLogoutHandler}>
                     Logout

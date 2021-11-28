@@ -6,17 +6,6 @@ const API_URL = "http://localhost:5000/api/tickets";
 const TicketId = () => {
   const router = useRouter();
 
-  const [ticketInfo, setTicketInfo] = useState();
-  // const [category, setCategory] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [dateCreated, setDateCreated] = useState("");
-  // const [dateResolved, setDateResolved] = useState("");
-  // const [state, setState] = useState();
-  // const [tags, setTags] = useState([]);
-  // const [user, setUser] = useState("");
-  // const [caseHistory, setCaseHistory] = useState([]);
-  // const [currentAssignee, setCurrentAssignee] = useState("");
-
   const { ticketId } = router.query;
 
   useEffect(() => {
