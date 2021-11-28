@@ -8,19 +8,19 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/userController";
-import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware";
+import { auth, admin } from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Only admin has access to this route -> /all
-router.get("/all", adminMiddleware, getUsers);
+router.get("/all", auth, admin, getUsers);
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router
   .route("/:id")
-  .get(authMiddleware, getUser)
-  .put(authMiddleware, updateUser)
-  .delete(authMiddleware, deleteUser);
+  .get(auth, getUser)
+  .put(auth, updateUser)
+  .delete(auth, deleteUser);
 
 export { router as userRoutes };

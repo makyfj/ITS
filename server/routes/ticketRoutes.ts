@@ -8,20 +8,20 @@ import {
   getUserTickets,
   getAllTickets,
 } from "../controllers/ticketController";
-import { adminMiddleware, authMiddleware } from "../middleware/authMiddleware";
+import { admin, auth } from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Only admin and authorized user is able to access ticketRoutes
 
-router.route("/").get(adminMiddleware, getAllTickets);
-router.post("/ticket", authMiddleware, createTicket);
+router.route("/").get(admin, getAllTickets);
+router.post("/ticket", auth, createTicket);
 router
   .route("/:id")
-  .get(authMiddleware, getTicket)
-  .put(authMiddleware, updateTicket)
-  .delete(authMiddleware, deleteTicket);
+  .get(auth, getTicket)
+  .put(auth, updateTicket)
+  .delete(auth, deleteTicket);
 
-router.get("/user/:id", authMiddleware, getUserTickets);
+router.get("/user/:id", auth, getUserTickets);
 
 export { router as ticketRoutes };
