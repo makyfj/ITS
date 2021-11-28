@@ -74,7 +74,7 @@ const updateTicket = asyncHandler(async (req: Request, res: Response) => {
 
   if (ticket) {
     ticket.category = req.body.category || ticket.category;
-    ticket.description = req.body.category || ticket.category;
+    ticket.description = req.body.description || ticket.description;
     ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
     ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
     ticket.state = req.body.state || ticket.state;
