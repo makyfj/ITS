@@ -197,6 +197,7 @@ const initialState = {
     isError: false,
     errorMessage: "",
   },
+  userTickets: [],
   tickets: [
     {
       _id: "",
@@ -255,6 +256,22 @@ const ticketSlice = createSlice({
         },
       ];
     },
+    clearUserTickets: (state) => {
+      state.userTickets = [
+        {
+          _id: "",
+          category: "",
+          description: "",
+          dateCreated: "",
+          dateResolved: "",
+          state: false,
+          tags: [],
+          user: "",
+          currentAssignee: "",
+          caseHistory: [],
+        },
+      ];
+    },
   },
   extraReducers: (builder) => {
     // Create Ticket
@@ -278,6 +295,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getTicket.fulfilled, (state, { payload }) => {
+      console.log("Get Ticket", payload);
       state.ticketInfo = payload;
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
@@ -337,7 +355,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getAllTickets.fulfilled, (state, { payload }) => {
-      state.tickets = [state.tickets, ...payload];
+      state.tickets = [...payload];
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;
@@ -353,7 +371,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getUserTickets.fulfilled, (state, { payload }) => {
-      state.tickets = [state.tickets, ...payload];
+      state.userTickets = [...payload];
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;
@@ -366,6 +384,10 @@ const ticketSlice = createSlice({
   },
 });
 
-export const { clearTicketStatus, clearTicketInfo, clearTickets } =
-  ticketSlice.actions;
+export const {
+  clearTicketStatus,
+  clearTicketInfo,
+  clearTickets,
+  clearUserTickets,
+} = ticketSlice.actions;
 export default ticketSlice.reducer;

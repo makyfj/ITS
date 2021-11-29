@@ -12,6 +12,7 @@ import {
   clearTickets,
   clearTicketInfo,
   clearTicketStatus,
+  clearUserTickets,
 } from "../app/features/ticket/ticketSlice";
 
 const Layout = ({ children }) => {
@@ -22,10 +23,11 @@ const Layout = ({ children }) => {
   const onLogoutHandler = (e) => {
     e.preventDefault();
     dispatch(logoutUser());
+    dispatch(clearUsers());
     dispatch(clearStatus());
     dispatch(clearTickets());
     dispatch(clearTicketInfo());
-    dispatch(clearUsers());
+    dispatch(clearUserTickets());
     dispatch(clearTicketStatus());
     router.push("/");
   };
@@ -48,6 +50,9 @@ const Layout = ({ children }) => {
                     </li>
                     <li>
                       <Link href="/tickets">Create ticket</Link>
+                    </li>
+                    <li>
+                      <Link href="/tickets/view">View my tickets</Link>
                     </li>
                     <li>
                       <button
