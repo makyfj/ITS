@@ -362,6 +362,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearStatus, clearUserInfo } = authSlice.actions;
+export const { clearStatus, clearUserInfo, clearUsers } = authSlice.actions;
 
 export default authSlice.reducer;

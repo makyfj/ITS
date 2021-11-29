@@ -320,5 +320,6 @@ const ticketSlice = createSlice({
   },
 });
 
-export const { clearTicketStatus, clearTicketInfo } = ticketSlice.actions;
+export const { clearTicketStatus, clearTicketInfo, clearTickets } =
+  ticketSlice.actions;
 export default ticketSlice.reducer;
