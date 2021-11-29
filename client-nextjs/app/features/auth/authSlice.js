@@ -149,31 +149,34 @@ export const deleteUser = createAsyncThunk(
 );
 
 // Only for admin
-export const getAllUsers = createAsyncThunk("auth/getAllUsers", async () => {
-  try {
-    const { auth } = thunkAPI.getState();
+export const getAllUsers = createAsyncThunk(
+  "auth/getAllUsers",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
 
-    const { data, status } = await axios.get(
-      `${process.env.API_URL}/api/users/all`,
-      config
-    );
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/users/all`,
+        config
+      );
 
-    if (status === 200) {
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
   }
-});
+);
 
 const initialState = {
   userInfo: {
@@ -336,7 +339,7 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      state.users = [...state.users, ...payload];
+      state.users = { ...state.users, ...payload };
       state.status.isSuccess = true;
       state.status.isFetching = false;
       state.status.isError = false;

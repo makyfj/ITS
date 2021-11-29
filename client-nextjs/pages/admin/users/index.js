@@ -6,6 +6,12 @@ const Users = () => {
   const dispatch = useDispatch();
 
   const { users } = useSelector((state) => state.auth);
+  const { _id } = useSelector((state) => state.auth.userInfo);
+  console.log(users);
+
+  useEffect(() => {
+    dispatch(getAllUsers(_id));
+  }, [_id, dispatch]);
 
   return (
     <div>

@@ -127,8 +127,6 @@ export const getAllTickets = createAsyncThunk(
   async (_id, thunkAPI) => {
     try {
       const { auth } = thunkAPI.getState();
-      console.log(auth);
-
       const config = {
         headers: {
           "Content-Type": "application/json",

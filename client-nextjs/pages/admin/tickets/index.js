@@ -6,12 +6,12 @@ const Tickets = () => {
   const dispatch = useDispatch();
 
   const { tickets } = useSelector((state) => state.ticket);
-  const { userInfo } = useSelector((state) => state.auth);
+  const { _id } = useSelector((state) => state.auth.userInfo);
 
   console.log(tickets);
   useEffect(() => {
-    dispatch(getAllTickets(userInfo._id));
-  }, [dispatch, userInfo._id]);
+    dispatch(getAllTickets(_id));
+  }, [dispatch, _id]);
   return (
     <>
       <h1>Tickets</h1>
