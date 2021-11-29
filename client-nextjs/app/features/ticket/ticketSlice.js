@@ -309,7 +309,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getAllTickets.fulfilled, (state, { payload }) => {
-      state.tickets = [...state.tickets, ...payload];
+      state.tickets = [state.tickets, ...payload];
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;

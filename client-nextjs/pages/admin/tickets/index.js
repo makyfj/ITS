@@ -23,14 +23,36 @@ const Tickets = () => {
   return (
     <>
       <h1>Tickets</h1>
-      <div className="ticketContainer">
+      <div className="tableContainer">
         <table>
-          <tr>
-            <th>Id</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date Created</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Date Created</th>
+              <th>Date Resolved</th>
+              <th>State</th>
+              <th>Tags</th>
+              <th>User</th>
+              <th>Current Assignee</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tickets.map((ticket, index) => (
+              <tr key={index}>
+                <td>{ticket._id}</td>
+                <td>{ticket.category}</td>
+                <td>{ticket.description}</td>
+                <td>{ticket.dateCreated}</td>
+                <td>{ticket.dateResolved}</td>
+                <td>{ticket.state ? "True" : "False"}</td>
+                <td>{ticket.tags}</td>
+                <td>{ticket.user}</td>
+                <td>{ticket.currentAssignee}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </>
