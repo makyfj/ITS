@@ -122,6 +122,36 @@ export const deleteTicket = createAsyncThunk(
   }
 );
 
+export const getAllTickets = createAsyncThunk(
+  "ticket/getAllTickets",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+      console.log(auth);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/tickets`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   ticketInfo: {
     _id: "",
@@ -255,6 +285,22 @@ const ticketSlice = createSlice({
       state.ticketStatus.isError = false;
     });
     builder.addCase(deleteTicket.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
+
+    // Get All Tickets
+    builder.addCase(getAllTickets.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(getAllTickets.fulfilled, (state, { payload }) => {
+      state.tickets = { ...state.tickets, ...payload };
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(getAllTickets.rejected, (state, { payload }) => {
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isError = true;
       state.ticketStatus.errorMessage = payload;
