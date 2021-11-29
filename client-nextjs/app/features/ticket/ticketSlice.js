@@ -212,18 +212,20 @@ const ticketSlice = createSlice({
       };
     },
     clearTickets: (state) => {
-      state.tickets = {
-        _id: "",
-        category: "",
-        description: "",
-        dateCreated: "",
-        dateResolved: "",
-        state: false,
-        tags: [],
-        user: "",
-        currentAssignee: "",
-        caseHistory: [],
-      };
+      state.tickets = [
+        {
+          _id: "",
+          category: "",
+          description: "",
+          dateCreated: "",
+          dateResolved: "",
+          state: false,
+          tags: [],
+          user: "",
+          currentAssignee: "",
+          caseHistory: [],
+        },
+      ];
     },
   },
   extraReducers: (builder) => {
@@ -307,7 +309,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getAllTickets.fulfilled, (state, { payload }) => {
-      state.tickets = { ...state.tickets, ...payload };
+      state.tickets = [...state.tickets, ...payload];
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;

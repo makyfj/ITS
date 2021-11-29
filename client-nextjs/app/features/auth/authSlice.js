@@ -228,14 +228,16 @@ const authSlice = createSlice({
       };
     },
     clearUsers: (state) => {
-      state.users = {
-        _id: "",
-        name: "",
-        email: "",
-        password: "",
-        isAdmin: false,
-        token: "",
-      };
+      state.users = [
+        {
+          _id: "",
+          name: "",
+          email: "",
+          password: "",
+          isAdmin: false,
+          token: "",
+        },
+      ];
     },
   },
 
@@ -349,7 +351,7 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      state.users = { ...state.users, ...payload };
+      state.users = [...state.users, ...payload];
       state.status.isSuccess = true;
       state.status.isFetching = false;
       state.status.isError = false;
