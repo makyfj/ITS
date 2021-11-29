@@ -211,6 +211,20 @@ const ticketSlice = createSlice({
         caseHistory: [],
       };
     },
+    clearTickets: (state) => {
+      state.tickets = {
+        _id: "",
+        category: "",
+        description: "",
+        dateCreated: "",
+        dateResolved: "",
+        state: false,
+        tags: [],
+        user: "",
+        currentAssignee: "",
+        caseHistory: [],
+      };
+    },
   },
   extraReducers: (builder) => {
     // Create Ticket

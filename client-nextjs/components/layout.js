@@ -3,7 +3,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, clearStatus } from "../app/features/auth/authSlice";
+import {
+  logoutUser,
+  clearStatus,
+  clearUsers,
+} from "../app/features/auth/authSlice";
+import {
+  clearTickets,
+  clearTicketInfo,
+  clearTicketStatus,
+} from "../app/features/ticket/ticketSlice";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -14,6 +23,10 @@ const Layout = ({ children }) => {
     e.preventDefault();
     dispatch(logoutUser());
     dispatch(clearStatus());
+    dispatch(clearTickets());
+    dispatch(clearTicketInfo());
+    dispatch(clearUsers());
+    dispatch(clearTicketStatus());
     router.push("/");
   };
 

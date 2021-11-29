@@ -227,6 +227,16 @@ const authSlice = createSlice({
         token: "",
       };
     },
+    clearUsers: (state) => {
+      state.users = {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
+        isAdmin: false,
+        token: "",
+      };
+    },
   },
 
   extraReducers: (builder) => {
