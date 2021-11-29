@@ -21,7 +21,7 @@ const TicketId = () => {
   const { ticketInfo } = useSelector((state) => state.ticket);
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
 
-  const { _id } = ticketInfo;
+  const { ticketId } = router.query;
 
   const updateTicketHandler = (e) => {
     e.preventDefault();
@@ -42,12 +42,8 @@ const TicketId = () => {
   };
 
   useEffect(() => {
-    dispatch(getTicket(ticketInfo._id));
-
-    if (ticketInfo._id === "") {
-      router.push("/");
-    }
-  }, [dispatch, ticketInfo._id, router]);
+    dispatch(getTicket(ticketId));
+  }, [dispatch, ticketId, router]);
 
   return (
     <>

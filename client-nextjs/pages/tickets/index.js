@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
-import { createTicket, getTicket } from "../../app/features/ticket/ticketSlice";
+import { createTicket } from "../../app/features/ticket/ticketSlice";
 
 const Ticket = () => {
   const [category, setCategory] = useState("");
@@ -12,7 +12,6 @@ const Ticket = () => {
   const dispatch = useDispatch();
 
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
-  const { _id } = useSelector((state) => state.ticket.ticketInfo);
 
   const router = useRouter();
 
@@ -21,14 +20,10 @@ const Ticket = () => {
     const tags = ticketTags.split(",");
 
     dispatch(createTicket({ category, description, tags, currentAssignee }));
-  };
-
-  useEffect(() => {
     if (isSuccess) {
-      dispatch(getTicket(_id));
-      router.push(`/tickets/${_id}`);
+      router.push("/tickets/view");
     }
-  }, [_id, dispatch, isSuccess, router]);
+  };
 
   return (
     <>

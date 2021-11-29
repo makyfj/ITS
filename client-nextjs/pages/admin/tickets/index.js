@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -41,7 +42,9 @@ const Tickets = () => {
           <tbody>
             {tickets.map((ticket, index) => (
               <tr key={index}>
-                <td>{ticket._id}</td>
+                <td>
+                  <Link href={`/tickets/${ticket._id}`}>{ticket._id}</Link>
+                </td>
                 <td>{ticket.category}</td>
                 <td>{ticket.description}</td>
                 <td>{ticket.dateCreated}</td>
