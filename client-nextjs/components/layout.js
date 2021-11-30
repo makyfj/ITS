@@ -96,7 +96,7 @@ const Layout = ({ children }) => {
         </nav>
       </div>
       <main>{children}</main>
-      <footer>Copyright &copy; ITS 2021</footer>
+      <footer>Copyright &copy; ITS 2021<br/>Email: its_admin@its.com</footer>
     </>
   );
 };
