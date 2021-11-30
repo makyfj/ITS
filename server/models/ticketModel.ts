@@ -5,7 +5,7 @@ interface Ticket extends Document {
   category: string;
   description: string;
   dateCreated: { type: Date; required: true };
-  dateResolved: { type: Date; required: true };
+  dateResolved: Date;
   // If true - then ticket is resolved else not resolved
   state: boolean;
   tags: Array<string>;
@@ -19,7 +19,7 @@ const ticketSchema = new Schema<Ticket>(
     category: { type: String, required: true },
     description: { type: String, required: true },
     dateCreated: { type: Date, required: true },
-    dateResolved: { type: Date, required: true },
+    dateResolved: { type: Date },
     state: { type: Boolean, required: true, default: false },
     tags: { type: [String], required: true },
     user: {

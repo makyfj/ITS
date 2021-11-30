@@ -78,7 +78,7 @@ const updateTicket = asyncHandler(async (req: Request, res: Response) => {
     ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
     ticket.state = req.body.state || ticket.state;
     if (ticket.state === true) {
-      ticket.dateResolved = req.body.updatedAt;
+      ticket.dateResolved = new Date();
     } else {
       ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
     }
