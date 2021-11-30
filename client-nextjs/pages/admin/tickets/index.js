@@ -22,8 +22,8 @@ const Tickets = () => {
 
   return (
     <>
-      <h1>Tickets</h1>
       <div className="tableContainer">
+      <h1>Tickets</h1>
         <table>
           <thead>
             <tr>

@@ -14,8 +14,8 @@ const ViewTickets = () => {
   }, [_id, dispatch]);
   return (
     <>
-      <h1>View Tickets</h1>
       <div className="tableContainer">
+      <h1>View Tickets</h1>
         <table>
           <thead>
             <tr>

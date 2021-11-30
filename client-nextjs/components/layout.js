@@ -90,7 +90,7 @@ const Layout = ({ children }) => {
               </>
             )}
             <li>
-              <Link href="/contact">Contact</Link>
+              <Link href="/contact">Credits</Link>
             </li>
           </ul>
         </nav>
