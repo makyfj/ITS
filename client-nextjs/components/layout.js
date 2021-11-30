@@ -18,7 +18,7 @@ import {
 const Layout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, admin } = useSelector((state) => state.auth);
 
   const onLogoutHandler = (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ const Layout = ({ children }) => {
                     </li>
                   </div>
                 </div>
-                {userInfo.isAdmin && (
+                {admin.isAdmin && (
                   <div className="dropdown">
                     <button className="dropdownBtn">Admin</button>
                     <div className="dropdownProfile">

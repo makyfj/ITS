@@ -12,7 +12,6 @@ const Tickets = () => {
   const { tickets } = useSelector((state) => state.ticket);
   const { _id, isAdmin } = useSelector((state) => state.auth.userInfo);
 
-  console.log(tickets);
   useEffect(() => {
     dispatch(getAllTickets(_id));
 

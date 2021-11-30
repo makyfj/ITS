@@ -11,7 +11,7 @@ import {
 
 const UserProfile = () => {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
@@ -35,7 +35,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUser(userId));
-  }, [dispatch, userId]);
+  }, [dispatch, userId, userInfo.isAdmin]);
 
   return (
     <div className="userId">

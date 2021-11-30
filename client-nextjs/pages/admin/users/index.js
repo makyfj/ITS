@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { getAllUsers } from "../../../app/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,6 @@ const Users = () => {
 
   const { users } = useSelector((state) => state.auth);
   const { _id, isAdmin } = useSelector((state) => state.auth.userInfo);
-  console.log(users);
 
   useEffect(() => {
     dispatch(getAllUsers(_id));
@@ -36,7 +36,9 @@ const Users = () => {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
-                <td>{user._id}</td>
+                <td>
+                  <Link href={`/users/${user._id}`}>{user._id}</Link>
+                </td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>******</td>

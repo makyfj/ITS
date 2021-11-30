@@ -8,8 +8,6 @@ const ViewTickets = () => {
   const { _id } = useSelector((state) => state.auth.userInfo);
   const { userTickets } = useSelector((state) => state.ticket);
 
-  console.log(userTickets);
-
   useEffect(() => {
     dispatch(getUserTickets(_id));
   }, [_id, dispatch]);
