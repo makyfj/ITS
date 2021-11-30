@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserTickets } from "../../../app/features/ticket/ticketSlice";
 
+// This is for the user to see their tickets
 const ViewTickets = () => {
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.auth.userInfo);

@@ -10,7 +10,7 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isSuccess } = useSelector((state) => state.auth.status);
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userLogin } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +19,9 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push(`/users/${userInfo._id}`);
+      router.push(`/users/${userLogin._id}`);
     }
-  }, [isSuccess, router, userInfo._id]);
+  }, [isSuccess, router, userLogin._id]);
 
   return (
     <div className="login_container">

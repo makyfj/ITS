@@ -9,7 +9,7 @@ const Users = () => {
   const router = useRouter();
 
   const { users } = useSelector((state) => state.auth);
-  const { _id, isAdmin } = useSelector((state) => state.auth.userInfo);
+  const { _id, isAdmin } = useSelector((state) => state.auth.userLogin);
 
   useEffect(() => {
     dispatch(getAllUsers(_id));

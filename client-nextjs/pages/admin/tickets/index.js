@@ -10,7 +10,7 @@ const Tickets = () => {
   const router = useRouter();
 
   const { tickets } = useSelector((state) => state.ticket);
-  const { _id, isAdmin } = useSelector((state) => state.auth.userInfo);
+  const { _id, isAdmin } = useSelector((state) => state.auth.userLogin);
 
   useEffect(() => {
     dispatch(getAllTickets(_id));

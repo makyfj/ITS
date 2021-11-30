@@ -18,7 +18,7 @@ import {
 const Layout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { userInfo, admin } = useSelector((state) => state.auth);
+  const { userLogin } = useSelector((state) => state.auth);
 
   const onLogoutHandler = (e) => {
     e.preventDefault();
@@ -40,13 +40,13 @@ const Layout = ({ children }) => {
             <li>
               <Link href="/">Home</Link>
             </li>
-            {userInfo.name !== "" ? (
+            {userLogin.name !== "" ? (
               <>
                 <div className="dropdown">
-                  <button className="dropdownBtn">{userInfo.name}</button>
+                  <button className="dropdownBtn">{userLogin.name}</button>
                   <div className="dropdownProfile">
                     <li>
-                      <Link href={`/users/${userInfo._id}`}>Profile</Link>
+                      <Link href={`/users/${userLogin._id}`}>Profile</Link>
                     </li>
                     <li>
                       <Link href="/tickets">Create ticket</Link>
@@ -65,7 +65,7 @@ const Layout = ({ children }) => {
                     </li>
                   </div>
                 </div>
-                {admin.isAdmin && (
+                {userLogin.isAdmin && (
                   <div className="dropdown">
                     <button className="dropdownBtn">Admin</button>
                     <div className="dropdownProfile">
