@@ -197,7 +197,20 @@ const initialState = {
     isError: false,
     errorMessage: "",
   },
-  userTickets: [],
+  userTickets: [
+    {
+      _id: "",
+      category: "",
+      description: "",
+      dateCreated: "",
+      dateResolved: "",
+      state: false,
+      tags: [],
+      user: "",
+      currentAssignee: "",
+      caseHistory: [],
+    },
+  ],
   tickets: [
     {
       _id: "",
