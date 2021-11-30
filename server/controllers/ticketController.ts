@@ -76,8 +76,12 @@ const updateTicket = asyncHandler(async (req: Request, res: Response) => {
     ticket.category = req.body.category || ticket.category;
     ticket.description = req.body.description || ticket.description;
     ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
-    ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
     ticket.state = req.body.state || ticket.state;
+    if (ticket.state === true) {
+      ticket.dateResolved = req.body.updatedAt;
+    } else {
+      ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
+    }
     ticket.tags = req.body.tags || ticket.tags;
     ticket.user = req.body.user || ticket.user;
     ticket.currentAssignee = req.body.currentAssignee || ticket.currentAssignee;

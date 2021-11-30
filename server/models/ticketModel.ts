@@ -19,7 +19,7 @@ const ticketSchema = new Schema<Ticket>(
     category: { type: String, required: true },
     description: { type: String, required: true },
     dateCreated: { type: Date, required: true },
-    dateResolved: { type: Date },
+    dateResolved: { type: Date, required: true },
     state: { type: Boolean, required: true, default: false },
     tags: { type: [String], required: true },
     user: {
