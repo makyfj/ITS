@@ -21,8 +21,8 @@ const Users = () => {
 
   return (
     <>
-      <h1>Users</h1>
       <div className="tableContainer">
+        <h1>Users</h1>
         <table>
           <thead>
             <tr>
