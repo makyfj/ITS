@@ -122,6 +122,62 @@ export const deleteTicket = createAsyncThunk(
   }
 );
 
+export const getAllTickets = createAsyncThunk(
+  "ticket/getAllTickets",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/tickets`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getUserTickets = createAsyncThunk(
+  "ticket/getUserTickets",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/tickets/user/${_id}`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   ticketInfo: {
     _id: "",
@@ -141,6 +197,7 @@ const initialState = {
     isError: false,
     errorMessage: "",
   },
+  userTickets: [],
   tickets: [
     {
       _id: "",
@@ -183,6 +240,38 @@ const ticketSlice = createSlice({
         caseHistory: [],
       };
     },
+    clearTickets: (state) => {
+      state.tickets = [
+        {
+          _id: "",
+          category: "",
+          description: "",
+          dateCreated: "",
+          dateResolved: "",
+          state: false,
+          tags: [],
+          user: "",
+          currentAssignee: "",
+          caseHistory: [],
+        },
+      ];
+    },
+    clearUserTickets: (state) => {
+      state.userTickets = [
+        {
+          _id: "",
+          category: "",
+          description: "",
+          dateCreated: "",
+          dateResolved: "",
+          state: false,
+          tags: [],
+          user: "",
+          currentAssignee: "",
+          caseHistory: [],
+        },
+      ];
+    },
   },
   extraReducers: (builder) => {
     // Create Ticket
@@ -206,6 +295,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getTicket.fulfilled, (state, { payload }) => {
+      console.log("Get Ticket", payload);
       state.ticketInfo = payload;
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
@@ -259,8 +349,45 @@ const ticketSlice = createSlice({
       state.ticketStatus.isError = true;
       state.ticketStatus.errorMessage = payload;
     });
+
+    // Get All Tickets
+    builder.addCase(getAllTickets.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(getAllTickets.fulfilled, (state, { payload }) => {
+      state.tickets = [...payload];
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(getAllTickets.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
+
+    // Get User Tickets
+    builder.addCase(getUserTickets.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(getUserTickets.fulfilled, (state, { payload }) => {
+      state.userTickets = [...payload];
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(getUserTickets.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
   },
 });
 
-export const { clearTicketStatus, clearTicketInfo } = ticketSlice.actions;
+export const {
+  clearTicketStatus,
+  clearTicketInfo,
+  clearTickets,
+  clearUserTickets,
+} = ticketSlice.actions;
 export default ticketSlice.reducer;

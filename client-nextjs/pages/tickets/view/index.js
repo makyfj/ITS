@@ -1,28 +1,19 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserTickets } from "../../../app/features/ticket/ticketSlice";
 
-import { getAllTickets } from "../../../app/features/ticket/ticketSlice";
-
-const Tickets = () => {
+const ViewTickets = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-
-  const { tickets } = useSelector((state) => state.ticket);
-  const { _id, isAdmin } = useSelector((state) => state.auth.userInfo);
+  const { _id } = useSelector((state) => state.auth.userInfo);
+  const { userTickets } = useSelector((state) => state.ticket);
 
   useEffect(() => {
-    dispatch(getAllTickets(_id));
-
-    if (!isAdmin) {
-      router.push("/");
-    }
-  }, [dispatch, _id, isAdmin, router]);
-
+    dispatch(getUserTickets(_id));
+  }, [_id, dispatch]);
   return (
     <>
-      <h1>Tickets</h1>
+      <h1>View Tickets</h1>
       <div className="tableContainer">
         <table>
           <thead>
@@ -39,7 +30,7 @@ const Tickets = () => {
             </tr>
           </thead>
           <tbody>
-            {tickets.map((ticket, index) => (
+            {userTickets.map((ticket, index) => (
               <tr key={index}>
                 <td>
                   <Link href={`/tickets/${ticket._id}`}>{ticket._id}</Link>
@@ -61,4 +52,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default ViewTickets;

@@ -18,8 +18,11 @@ const auth = asyncHandler(
         const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = await UserModel.findById(decoded.userId);
-        console.log(req.user);
-        next();
+
+        // Testing
+        if (req.user || req.user.isAdmin) {
+          next();
+        }
       } catch (error) {
         console.log(error);
         res.status(401).json("Not authorized, token failed");

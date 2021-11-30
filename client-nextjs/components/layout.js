@@ -3,17 +3,32 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, clearStatus } from "../app/features/auth/authSlice";
+import {
+  logoutUser,
+  clearStatus,
+  clearUsers,
+} from "../app/features/auth/authSlice";
+import {
+  clearTickets,
+  clearTicketInfo,
+  clearTicketStatus,
+  clearUserTickets,
+} from "../app/features/ticket/ticketSlice";
 
 const Layout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, admin } = useSelector((state) => state.auth);
 
   const onLogoutHandler = (e) => {
     e.preventDefault();
     dispatch(logoutUser());
+    dispatch(clearUsers());
     dispatch(clearStatus());
+    dispatch(clearTickets());
+    dispatch(clearTicketInfo());
+    dispatch(clearUserTickets());
+    dispatch(clearTicketStatus());
     router.push("/");
   };
 
@@ -37,6 +52,9 @@ const Layout = ({ children }) => {
                       <Link href="/tickets">Create ticket</Link>
                     </li>
                     <li>
+                      <Link href="/tickets/view">View my tickets</Link>
+                    </li>
+                    <li>
                       <button
                         className="logoutBtn"
                         type="submit"
@@ -47,7 +65,7 @@ const Layout = ({ children }) => {
                     </li>
                   </div>
                 </div>
-                {userInfo.isAdmin && (
+                {admin.isAdmin && (
                   <div className="dropdown">
                     <button className="dropdownBtn">Admin</button>
                     <div className="dropdownProfile">

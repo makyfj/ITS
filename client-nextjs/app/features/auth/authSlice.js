@@ -149,34 +149,45 @@ export const deleteUser = createAsyncThunk(
 );
 
 // Only for admin
-export const getAllUsers = createAsyncThunk("auth/getAllUsers", async () => {
-  try {
-    const { auth } = thunkAPI.getState();
+export const getAllUsers = createAsyncThunk(
+  "auth/getAllUsers",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
 
-    const { data, status } = await axios.get(
-      `${process.env.API_URL}/api/users/all`,
-      config
-    );
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/users/all`,
+        config
+      );
 
-    if (status === 200) {
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
   }
-});
+);
 
 const initialState = {
   userInfo: {
+    _id: "",
+    name: "",
+    email: "",
+    password: "",
+    isAdmin: false,
+    token: "",
+  },
+  admin: {
     _id: "",
     name: "",
     email: "",
@@ -223,6 +234,18 @@ const authSlice = createSlice({
         isAdmin: false,
         token: "",
       };
+    },
+    clearUsers: (state) => {
+      state.users = [
+        {
+          _id: "",
+          name: "",
+          email: "",
+          password: "",
+          isAdmin: false,
+          token: "",
+        },
+      ];
     },
   },
 
@@ -287,6 +310,10 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
+      const { isAdmin } = payload;
+      if (isAdmin) {
+        state.admin = payload;
+      }
       state.userInfo = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
@@ -304,6 +331,11 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(updateUser.fulfilled, (state, { payload }) => {
+      const { isAdmin } = payload;
+      if (isAdmin) {
+        state.admin = payload;
+      }
+
       state.userInfo = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
@@ -336,7 +368,7 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      state.users = [...state.users, ...payload];
+      state.users = [...payload];
       state.status.isSuccess = true;
       state.status.isFetching = false;
       state.status.isError = false;
@@ -349,6 +381,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearStatus, clearUserInfo } = authSlice.actions;
+export const { clearStatus, clearUserInfo, clearUsers } = authSlice.actions;
 
 export default authSlice.reducer;
