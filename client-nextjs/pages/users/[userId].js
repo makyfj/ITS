@@ -35,7 +35,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUser(userId));
-  }, [dispatch, userId, userInfo.isAdmin]);
+  }, [dispatch, userId]);
 
   return (
     <div className="userId">

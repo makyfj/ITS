@@ -187,7 +187,7 @@ const initialState = {
     isAdmin: false,
     token: "",
   },
-  admin: {
+  userLogin: {
     _id: "",
     name: "",
     email: "",
@@ -256,6 +256,7 @@ const authSlice = createSlice({
     });
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
       state.userInfo = payload;
+      state.userLogin = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
       state.status.isError = false;
@@ -272,6 +273,7 @@ const authSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
       state.userInfo = payload;
+      state.userLogin = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
       state.status.isError = false;
@@ -295,6 +297,14 @@ const authSlice = createSlice({
         isAdmin: false,
         token: "",
       };
+      state.userLogin = {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
+        isAdmin: false,
+        token: "",
+      };
       state.status.isSuccess = false;
       state.status.isFetching = false;
       state.status.isError = false;
@@ -310,10 +320,6 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      const { isAdmin } = payload;
-      if (isAdmin) {
-        state.admin = payload;
-      }
       state.userInfo = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
@@ -331,11 +337,6 @@ const authSlice = createSlice({
       state.status.isFetching = true;
     });
     builder.addCase(updateUser.fulfilled, (state, { payload }) => {
-      const { isAdmin } = payload;
-      if (isAdmin) {
-        state.admin = payload;
-      }
-
       state.userInfo = payload;
       state.status.isSuccess = true;
       state.status.isFetching = false;
