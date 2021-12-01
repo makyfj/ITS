@@ -27,7 +27,7 @@ const Ticket = () => {
 
   return (
     <>
-      <h1>Create a ticket</h1>
+      <h1 className="titlePage">Create a ticket</h1>
       <div className="ticket">
         <form>
           <label>Category: </label>

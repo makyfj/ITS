@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 
-import { UserIdRequest } from "../interfaces/userIdRequest";
-import { UserRequest } from "../interfaces/userRequest";
 import TicketModel from "../models/ticketModel";
 import UserModel from "../models/userModel";
 
@@ -70,35 +67,32 @@ const getTicket = asyncHandler(async (req: Request, res: Response) => {
 // @route PUT /api/tickets/:id
 // @access Private/Admin
 const updateTicket = asyncHandler(async (req: Request, res: Response) => {
-  const ticket = await TicketModel.findById(req.params.id);
+  const { state } = req.body;
 
-  if (ticket) {
-    ticket.category = req.body.category || ticket.category;
-    ticket.description = req.body.description || ticket.description;
-    ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
-    ticket.state = req.body.state || ticket.state;
-    if (ticket.state === true) {
-      ticket.dateResolved = new Date();
-    } else {
-      ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
-    }
-    ticket.tags = req.body.tags || ticket.tags;
-    ticket.user = req.body.user || ticket.user;
-    ticket.currentAssignee = req.body.currentAssignee || ticket.currentAssignee;
-    ticket.caseHistory = req.body.caseHistory || ticket.caseHistory;
+  if (state === true) {
+    req.body.dateResolved = new Date();
+  }
 
-    const updatedTicket = await ticket.save();
+  const ticket = await TicketModel.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
 
+  const updatedTicket = await TicketModel.findOneAndUpdate(
+    { _id: req.params.id },
+    { $push: { caseHistory: req.body }, new: true }
+  );
+
+  if (updatedTicket) {
     res.json({
-      _id: updatedTicket._id,
-      category: updatedTicket.category,
-      description: updatedTicket.description,
-      dateCreated: updatedTicket.dateCreated,
-      dateResolved: updatedTicket.dateResolved,
-      state: updatedTicket.state,
-      tags: updatedTicket.tags,
-      user: updatedTicket.user,
-      currentAssignee: updatedTicket.currentAssignee,
+      _id: ticket._id,
+      category: ticket.category || req.body.category,
+      description: ticket.description || req.body.description,
+      dateCreated: ticket.dateCreated,
+      dateResolved: ticket.dateResolved,
+      state: ticket.state || req.body.state,
+      tags: ticket.tags || req.body.tags,
+      user: ticket.user,
+      currentAssignee: ticket.currentAssignee || req.body.currentAssignee,
       caseHistory: updatedTicket.caseHistory,
     });
   } else {
