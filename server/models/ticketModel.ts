@@ -24,20 +24,19 @@ const ticketSchema = new Schema<Ticket>(
     tags: { type: [String], required: true },
     user: {
       type: Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     currentAssignee: { type: String, required: true },
     caseHistory: {
       type: [
         {
-          category: { type: String, required: true },
-          description: { type: String, required: true },
-          dateCreated: { type: Date, required: true },
+          category: { type: String },
+          description: { type: String },
+          dateCreated: { type: Date },
           dateResolved: { type: Date },
-          state: { type: Boolean, required: true, default: false },
-          tags: { type: [String], required: true },
-          currentAssignee: { type: String, required: true },
+          state: { type: Boolean, default: false },
+          tags: { type: [String] },
+          currentAssignee: { type: String },
         },
       ],
     },

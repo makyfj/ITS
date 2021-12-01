@@ -73,26 +73,40 @@ const updateTicket = asyncHandler(async (req: Request, res: Response) => {
     req.body.dateResolved = new Date();
   }
 
-  const ticket = await TicketModel.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  // const ticket = await TicketModel.findByIdAndUpdate(req.params.id, req.body, {
+  //   new: true,
+  // });
 
-  const updatedTicket = await TicketModel.findOneAndUpdate(
+  const ticket = await TicketModel.findById(req.params.id);
+
+  const ticketCaseHistory = await TicketModel.findOneAndUpdate(
     { _id: req.params.id },
     { $push: { caseHistory: req.body }, new: true }
   );
 
-  if (updatedTicket) {
+  if (ticket) {
+    ticket.category = req.body.category || ticket.category;
+    ticket.description = req.body.description || ticket.description;
+    ticket.dateCreated = req.body.dateCreated || ticket.dateCreated;
+    ticket.dateResolved = req.body.dateResolved || ticket.dateResolved;
+    ticket.state = req.body.state || ticket.state;
+    ticket.tags = req.body.tags || ticket.tags;
+    ticket.user = req.body.user || ticket.user;
+    ticket.currentAssignee = req.body.currentAssignee || ticket.currentAssignee;
+    ticket.caseHistory = ticketCaseHistory.caseHistory;
+
+    const updatedTicket = await ticket.save();
+
     res.json({
-      _id: ticket._id,
-      category: ticket.category || req.body.category,
-      description: ticket.description || req.body.description,
-      dateCreated: ticket.dateCreated,
-      dateResolved: ticket.dateResolved,
-      state: ticket.state || req.body.state,
-      tags: ticket.tags || req.body.tags,
-      user: ticket.user,
-      currentAssignee: ticket.currentAssignee || req.body.currentAssignee,
+      _id: updatedTicket._id,
+      category: updatedTicket.category,
+      description: updatedTicket.description,
+      dateCreated: updatedTicket.dateCreated,
+      dateResolved: updatedTicket.dateResolved,
+      state: updatedTicket.state,
+      tags: updatedTicket.tags,
+      user: updatedTicket.user,
+      currentAssignee: updatedTicket.currentAssignee,
       caseHistory: updatedTicket.caseHistory,
     });
   } else {

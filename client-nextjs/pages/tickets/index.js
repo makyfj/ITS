@@ -31,13 +31,17 @@ const Ticket = () => {
       <div className="ticket">
         <form>
           <label>Category: </label>
-          <input
-            type="text"
-            placeholder="Category"
+          <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
-          />
+          >
+            <option value="Workplace">Workplace</option>
+            <option value="Accident">Accident</option>
+            <option value="Safety">Safety</option>
+            <option value="Security">Security</option>
+            <option value="Emergency">Emergency</option>
+          </select>
           <label>Description: </label>
           <textarea
             type="text"

@@ -11,7 +11,7 @@ import {
 
 const UserProfile = () => {
   const router = useRouter();
-  const [name, setName] = useState(null);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
@@ -35,7 +35,8 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUser(userId));
-  }, [dispatch, userId]);
+    setIsAdmin(userInfo.isAdmin);
+  }, [dispatch, userId, userInfo.isAdmin]);
 
   return (
     <div className="userId">
@@ -44,7 +45,7 @@ const UserProfile = () => {
         <label>Name: </label>
         <input
           type="text"
-          value={name}
+          value={name ? name : userInfo.name}
           onChange={(e) => setName(e.target.value)}
           placeholder={userInfo.name}
         />
@@ -53,7 +54,7 @@ const UserProfile = () => {
         <label>Email: </label>
         <input
           type="email"
-          value={email}
+          value={email ? email : userInfo.email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={userInfo.email}
         />

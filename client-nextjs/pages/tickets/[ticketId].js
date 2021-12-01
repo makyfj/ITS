@@ -12,7 +12,7 @@ import {
 const TicketId = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState(false);
   const [ticketTags, setTicketTags] = useState("");
   const [currentAssignee, setCurrentAssignee] = useState("");
 
@@ -22,10 +22,18 @@ const TicketId = () => {
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
 
   const { ticketId } = router.query;
+  const { _id } = ticketInfo;
 
   const updateTicketHandler = (e) => {
     e.preventDefault();
     const tags = ticketTags.split(",");
+
+    if (state === "true") {
+      state = true;
+    } else {
+      state = false;
+    }
+
     dispatch(
       updateTicket({ _id, category, description, tags, state, currentAssignee })
     );
@@ -43,7 +51,8 @@ const TicketId = () => {
 
   useEffect(() => {
     dispatch(getTicket(ticketId));
-  }, [dispatch, ticketId, router]);
+    setState(ticketInfo.state);
+  }, [dispatch, ticketId, router, ticketInfo.state]);
 
   return (
     <>
@@ -55,7 +64,7 @@ const TicketId = () => {
             Category:{" "}
             <input
               type="text"
-              value={category}
+              value={category ? category : ticketInfo.category}
               onChange={(e) => setCategory(e.target.value)}
               placeholder={ticketInfo.category}
             />
@@ -64,32 +73,38 @@ const TicketId = () => {
             Description:
             <textarea
               type="text"
-              value={description}
+              value={description ? description : ticketInfo.category}
               onChange={(e) => setDescription(e.target.value)}
               rows="4"
               placeholder={ticketInfo.description}
             />
           </label>
-          <label>
-            Date Created:
-            <input type="text" placeholder={ticketInfo.dateCreated} />
-          </label>
-          <label>
-            Date Resolved:{" "}
-            <input type="text" placeholder={ticketInfo.dateResolved} />
-          </label>
+          <label>Date Created: {ticketInfo.dateCreated}</label>
+          <label>Date Resolved: {ticketInfo.dateResolved}</label>
           <label>
             State:
             <input
-              type="text"
-              placeholder={ticketInfo.state ? "True" : "False"}
-            />
+              type="radio"
+              name="radio-group"
+              value={true}
+              onChange={(e) => setState(e.target.value)}
+            />{" "}
+            True
+            <input
+              type="radio"
+              name="radio-group"
+              value={false}
+              defaultChecked={ticketInfo.state === false}
+              onChange={(e) => setState(e.target.value)}
+              disabled={ticketInfo.state === true}
+            />{" "}
+            False
           </label>
           <label>
             Tags:{" "}
             <input
               type="text"
-              value={ticketTags}
+              value={ticketTags ? ticketTags : ticketInfo.tags}
               onChange={(e) => setTicketTags(e.target.value)}
               placeholder={ticketInfo.tags}
             />
@@ -99,7 +114,9 @@ const TicketId = () => {
             Current Assignee:{" "}
             <input
               type="text"
-              value={currentAssignee}
+              value={
+                currentAssignee ? currentAssignee : ticketInfo.currentAssignee
+              }
               onChange={(e) => setCurrentAssignee(e.target.value)}
               placeholder={ticketInfo.currentAssignee}
             />
