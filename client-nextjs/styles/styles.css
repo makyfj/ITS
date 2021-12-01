@@ -95,6 +95,7 @@ div.outer {
 div.outer h1 {
   font-family: "open_sans_bold";
   text-decoration: underline;
+  text-align: center;
 }
 
 div.aboutBloc {
@@ -120,6 +121,7 @@ div.login_container {
   background-color: rgb(77, 175, 255);
   margin: 0px;
   padding: 1%;
+  text-align: center;
 }
 
 div.login_container h1 {
@@ -153,6 +155,7 @@ div.register_container {
   background-color: rgb(77, 175, 255);
   margin: 0px;
   padding: 1%;
+  text-align: center;
 }
 
 div.register_container h1 {
@@ -186,6 +189,7 @@ div.contact_container {
   background-color: rgb(77, 175, 255);
   margin: 0px;
   padding: 1%;
+  text-align: center;
 }
 
 div.contact_container h1 {
