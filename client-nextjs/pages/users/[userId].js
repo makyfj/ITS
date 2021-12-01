@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+
+import HeadPage from "../../components/headPage";
 import {
   getUser,
   updateUser,
@@ -40,6 +42,7 @@ const UserProfile = () => {
 
   return (
     <div className="userId">
+      <HeadPage title={`User Info: ${userInfo.name}`} />
       <h1>User Info</h1>
       <form>
         <label>Name: </label>

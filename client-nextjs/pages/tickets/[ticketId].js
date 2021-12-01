@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+
+import HeadPage from "../../components/headPage";
 import {
   getTicket,
   updateTicket,
@@ -62,6 +64,7 @@ const TicketId = () => {
 
   return (
     <>
+      <HeadPage title={`Ticket Info: ${ticketInfo.category}`} />
       <h1 className="titlePage">Ticket Info</h1>
       <div className="ticket">
         <form>

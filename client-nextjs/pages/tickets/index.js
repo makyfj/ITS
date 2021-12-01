@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
+
+import HeadPage from "../../components/headPage";
 import { createTicket } from "../../app/features/ticket/ticketSlice";
 
 const Ticket = () => {
@@ -33,6 +35,7 @@ const Ticket = () => {
 
   return (
     <>
+      <HeadPage title="Create a ticket" />
       <h1 className="titlePage">Create a ticket</h1>
       <div className="ticket">
         <form>

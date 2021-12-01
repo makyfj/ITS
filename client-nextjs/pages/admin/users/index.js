@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getAllUsers } from "../../../app/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+import HeadPage from "../../../components/headPage";
+import { getAllUsers } from "../../../app/features/auth/authSlice";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ const Users = () => {
   return (
     <>
       <div className="tableContainer">
+        <HeadPage title="Admin: View Users" />
         <h1>Users</h1>
         <table>
           <thead>

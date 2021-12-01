@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import { useSelector, useDispatch } from "react-redux";
+
+import HeadPage from "../../../components/headPage";
 import { getTicket } from "../../../app/features/ticket/ticketSlice";
 
 const CaseHistory = () => {
@@ -10,8 +13,6 @@ const CaseHistory = () => {
 
   const { historyId } = router.query;
 
-  console.log(caseHistory);
-
   useEffect(() => {
     dispatch(getTicket(historyId));
   }, [dispatch, historyId]);
@@ -19,8 +20,12 @@ const CaseHistory = () => {
   return (
     <>
       <div className="tableContainer">
+        <HeadPage title="Case History" />
         <h1>Case History</h1>
-        <p>Ticket ID: </p>
+        <p>
+          Ticket ID:
+          <Link href={`/tickets/${historyId}`}>{historyId}</Link>
+        </p>
         <table>
           <thead>
             <tr>

@@ -1,8 +1,10 @@
 import React from "react";
+import HeadPage from "../components/headPage";
 
 const Home = () => {
   return (
     <div className="outer">
+      <HeadPage title="Incident Tracking System" />
       <h1>Incident Tracking System - Homepage</h1>
       <div className="aboutBloc">
         <h1>About</h1>

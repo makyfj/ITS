@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
+
+import HeadPage from "../../../components/headPage";
 import { getUserTickets } from "../../../app/features/ticket/ticketSlice";
 
 // This is for the user to see their tickets
@@ -17,6 +19,7 @@ const ViewTickets = () => {
   return (
     <>
       <div className="tableContainer">
+        <HeadPage title="My tickets" />
         <h1>My Tickets</h1>
         <table>
           <thead>

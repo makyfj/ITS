@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
+import HeadPage from "../../../components/headPage";
 import { getAllTickets } from "../../../app/features/ticket/ticketSlice";
 
 const Tickets = () => {
@@ -23,6 +24,7 @@ const Tickets = () => {
   return (
     <>
       <div className="tableContainer">
+        <HeadPage title="Admin: View Tickets" />
         <h1>Tickets</h1>
         <table>
           <thead>

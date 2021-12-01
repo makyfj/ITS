@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+
 import { loginUser } from "../app/features/auth/authSlice";
+import HeadPage from "../components/headPage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,6 +27,7 @@ const Login = () => {
 
   return (
     <div className="login_container">
+      <HeadPage title="Login" />
       <h1>Login</h1>
       <form>
         <label>Email: </label>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+
+import HeadPage from "../components/headPage";
 import { registerUser, clearStatus } from "../app/features/auth/authSlice";
 
 const Register = () => {
@@ -28,6 +30,7 @@ const Register = () => {
 
   return (
     <div className="register_container">
+      <HeadPage title="Register" />
       <h1>Register</h1>
       <form>
         <label>Name: </label>
