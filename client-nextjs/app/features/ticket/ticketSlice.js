@@ -308,7 +308,6 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getTicket.fulfilled, (state, { payload }) => {
-      console.log("Get Ticket", payload);
       state.ticketInfo = payload;
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
