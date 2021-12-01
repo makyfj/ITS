@@ -251,6 +251,11 @@ div.userId button.createTicket {
 
 /*===================================================*/
 /*Styling ticket creation page*/
+
+.titlePage {
+  text-align: center;
+}
+
 .ticket {
   display: flex;
   justify-content: center;
