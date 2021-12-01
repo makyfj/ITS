@@ -26,7 +26,13 @@ const TicketId = () => {
 
   const updateTicketHandler = (e) => {
     e.preventDefault();
-    const tags = ticketTags.split(",");
+
+    let tags;
+    if (ticketTags === "") {
+      tags = ticketInfo.tags.split(",");
+    } else {
+      tags = ticketTags.split(",");
+    }
 
     if (state === "true") {
       state = true;
@@ -56,7 +62,7 @@ const TicketId = () => {
 
   return (
     <>
-      <h1>Ticket Info</h1>
+      <h1 className="titlePage">Ticket Info</h1>
       <div className="ticket">
         <form>
           <label>ID: {ticketInfo._id}</label>
@@ -73,7 +79,7 @@ const TicketId = () => {
             Description:
             <textarea
               type="text"
-              value={description ? description : ticketInfo.category}
+              value={description ? description : ticketInfo.description}
               onChange={(e) => setDescription(e.target.value)}
               rows="4"
               placeholder={ticketInfo.description}

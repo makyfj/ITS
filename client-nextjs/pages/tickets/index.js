@@ -19,11 +19,17 @@ const Ticket = () => {
     e.preventDefault();
     const tags = ticketTags.split(",");
 
+    if (category === "") {
+      category = "Workplace";
+    }
+
     dispatch(createTicket({ category, description, tags, currentAssignee }));
     if (isSuccess) {
       router.push("/tickets/view");
     }
   };
+
+  console.log(category);
 
   return (
     <>
