@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
-    "dev": "nodemon -x ts-node app.ts"
+    "dev": "node dist/app.js"
   },
   "author": "makyfj",
   "license": "ISC",
