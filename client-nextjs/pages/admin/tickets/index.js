@@ -38,6 +38,7 @@ const Tickets = () => {
               <th>Tags</th>
               <th>User</th>
               <th>Current Assignee</th>
+              <th>Case History</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +55,11 @@ const Tickets = () => {
                 <td>{ticket.tags}</td>
                 <td>{ticket.user}</td>
                 <td>{ticket.currentAssignee}</td>
+                <td>
+                  <Link href={`/tickets/history/${ticket._id}`}>
+                    View Case History
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
