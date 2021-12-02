@@ -13,6 +13,7 @@ import {
   clearTicketInfo,
   clearTicketStatus,
   clearUserTickets,
+  clearCategories,
 } from "../app/features/ticket/ticketSlice";
 
 const Layout = ({ children }) => {
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
     dispatch(clearTicketInfo());
     dispatch(clearUserTickets());
     dispatch(clearTicketStatus());
+    dispatch(clearCategories());
     router.push("/");
   };
 
