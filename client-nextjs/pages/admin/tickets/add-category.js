@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 import {
   getCategories,
@@ -10,7 +11,9 @@ const AddCategory = () => {
   const [category, setCategory] = useState("");
 
   const dispatch = useDispatch();
+  const router = useRouter();
   const { categories } = useSelector((state) => state.ticket);
+  const { _id, isAdmin } = useSelector((state) => state.auth.userLogin);
 
   // Dummy id to getState for categories
   const tempId = "id";
@@ -26,7 +29,11 @@ const AddCategory = () => {
 
   useEffect(() => {
     dispatch(getCategories(tempId));
-  }, [dispatch]);
+
+    if (!isAdmin) {
+      router.push("/");
+    }
+  }, [dispatch, isAdmin, router]);
 
   return (
     <div className="tableContainer">
