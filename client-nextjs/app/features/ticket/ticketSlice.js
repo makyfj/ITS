@@ -178,6 +178,65 @@ export const getUserTickets = createAsyncThunk(
   }
 );
 
+// For Category Model
+export const getCategories = createAsyncThunk(
+  "ticket/getCategories",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.get(
+        `${process.env.API_URL}/api/category`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateCategories = createAsyncThunk(
+  "ticket/updateCategories",
+  async (_id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.userInfo.token}`,
+        },
+      };
+
+      const { data, status } = await axios.put(
+        `${process.env.API_URL}/api/category/${_id}`,
+        config
+      );
+
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   ticketInfo: {
     _id: "",
@@ -286,8 +345,8 @@ const ticketSlice = createSlice({
         },
       ];
     },
-    addCategory: (state, { payload }) => {
-      state.categories = [...payload];
+    clearCategories: (state) => {
+      state.categories = [];
     },
   },
   extraReducers: (builder) => {
@@ -397,6 +456,38 @@ const ticketSlice = createSlice({
       state.ticketStatus.isError = true;
       state.ticketStatus.errorMessage = payload;
     });
+
+    // Get Categories
+    builder.addCase(getCategories.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+      state.categories = [...payload];
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(getCategories.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
+
+    // Update Categories
+    builder.addCase(updateCategories.pending, (state) => {
+      state.ticketStatus.isFetching = true;
+    });
+    builder.addCase(updateCategories.fulfilled, (state, { payload }) => {
+      state.categories = [...payload];
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isSuccess = true;
+      state.ticketStatus.isError = false;
+    });
+    builder.addCase(updateCategories.rejected, (state, { payload }) => {
+      state.ticketStatus.isFetching = false;
+      state.ticketStatus.isError = true;
+      state.ticketStatus.errorMessage = payload;
+    });
   },
 });
 
@@ -405,6 +496,6 @@ export const {
   clearTicketInfo,
   clearTickets,
   clearUserTickets,
-  addCategory,
+  clearCategories,
 } = ticketSlice.actions;
 export default ticketSlice.reducer;

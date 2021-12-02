@@ -18,5 +18,5 @@ Organizational IT support is a common example, where a request leads to a genera
 
 ## Frontend
 
-- ContextAPI
+- Redux Toolkit
 - Nextjs
