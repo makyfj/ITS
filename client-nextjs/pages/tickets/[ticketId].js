@@ -9,6 +9,7 @@ import {
   deleteTicket,
   clearTicketStatus,
   clearTicketInfo,
+  getCategories,
 } from "../../app/features/ticket/ticketSlice";
 
 const TicketId = () => {
@@ -22,6 +23,15 @@ const TicketId = () => {
   const dispatch = useDispatch();
   const { ticketInfo } = useSelector((state) => state.ticket);
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+  const { categories } = useSelector((state) => state.ticket);
+
+  // For Category State Management
+  let categoryArray = [];
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < categories[i].category.length; j++) {
+      categoryArray.push(categories[i].category[j]);
+    }
+  }
 
   const { ticketId } = router.query;
   const { _id } = ticketInfo;
@@ -58,6 +68,8 @@ const TicketId = () => {
   };
 
   useEffect(() => {
+    const dummyId = "id";
+    dispatch(getCategories(dummyId));
     dispatch(getTicket(ticketId));
     setState(ticketInfo.state);
   }, [dispatch, ticketId, router, ticketInfo.state]);
@@ -71,12 +83,16 @@ const TicketId = () => {
           <label>ID: {ticketInfo._id}</label>
           <label>
             Category:{" "}
-            <input
-              type="text"
+            <select
               value={category ? category : ticketInfo.category}
               onChange={(e) => setCategory(e.target.value)}
-              placeholder={ticketInfo.category}
-            />
+            >
+              {categoryArray.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </label>
           <label>
             Description:
