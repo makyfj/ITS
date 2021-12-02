@@ -75,6 +75,11 @@ const Layout = ({ children }) => {
                       <li>
                         <Link href="/admin/users">View Users</Link>
                       </li>
+                      <li>
+                        <Link href="/admin/tickets/add-category">
+                          Add Category
+                        </Link>
+                      </li>
                     </div>
                   </div>
                 )}
@@ -90,13 +95,17 @@ const Layout = ({ children }) => {
               </>
             )}
             <li>
-              <Link href="/contact">Credits</Link>
+              <Link href="/credits">Credits</Link>
             </li>
           </ul>
         </nav>
       </div>
       <main>{children}</main>
-      <footer>Copyright &copy; ITS 2021<br/>Email: its_admin@its.com</footer>
+      <footer>
+        Copyright &copy; ITS 2021
+        <br />
+        Email: its_admin@its.com
+      </footer>
     </>
   );
 };

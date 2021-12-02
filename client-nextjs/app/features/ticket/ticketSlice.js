@@ -210,7 +210,7 @@ export const getCategories = createAsyncThunk(
 
 export const updateCategories = createAsyncThunk(
   "ticket/updateCategories",
-  async (_id, thunkAPI) => {
+  async ({ _id, category }, thunkAPI) => {
     try {
       const { auth } = thunkAPI.getState();
 
@@ -223,6 +223,7 @@ export const updateCategories = createAsyncThunk(
 
       const { data, status } = await axios.put(
         `${process.env.API_URL}/api/category/${_id}`,
+        { category },
         config
       );
 
@@ -284,7 +285,12 @@ const initialState = {
       caseHistory: [],
     },
   ],
-  categories: [],
+  categories: [
+    {
+      _id: "",
+      category: [],
+    },
+  ],
 };
 
 const ticketSlice = createSlice({
@@ -462,7 +468,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(getCategories.fulfilled, (state, { payload }) => {
-      state.categories = [...payload];
+      state.categories = payload;
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;
@@ -478,7 +484,7 @@ const ticketSlice = createSlice({
       state.ticketStatus.isFetching = true;
     });
     builder.addCase(updateCategories.fulfilled, (state, { payload }) => {
-      state.categories = [...payload];
+      state.categories = payload;
       state.ticketStatus.isFetching = false;
       state.ticketStatus.isSuccess = true;
       state.ticketStatus.isError = false;
