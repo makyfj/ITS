@@ -3,7 +3,10 @@ import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import HeadPage from "../../components/headPage";
-import { createTicket } from "../../app/features/ticket/ticketSlice";
+import {
+  createTicket,
+  getCategories,
+} from "../../app/features/ticket/ticketSlice";
 
 const Ticket = () => {
   const [category, setCategory] = useState("");
@@ -14,6 +17,15 @@ const Ticket = () => {
   const dispatch = useDispatch();
 
   const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+  const { categories } = useSelector((state) => state.ticket);
+
+  // For Category State Management
+  let categoryArray = [];
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < categories[i].category.length; j++) {
+      categoryArray.push(categories[i].category[j]);
+    }
+  }
 
   const router = useRouter();
 
@@ -31,7 +43,10 @@ const Ticket = () => {
     }
   };
 
-  console.log(category);
+  useEffect(() => {
+    const id = "id";
+    dispatch(getCategories(id));
+  }, [dispatch]);
 
   return (
     <>
@@ -45,11 +60,11 @@ const Ticket = () => {
             onChange={(e) => setCategory(e.target.value)}
             required
           >
-            <option value="Workplace">Workplace</option>
-            <option value="Accident">Accident</option>
-            <option value="Safety">Safety</option>
-            <option value="Security">Security</option>
-            <option value="Emergency">Emergency</option>
+            {categoryArray.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
           <label>Description: </label>
           <textarea
