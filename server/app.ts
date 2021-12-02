@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Web-Base Issue Tracking System API is running");
+  res.send("Web-Based Issue Tracking System API is running :)");
 });
 
 // User routes

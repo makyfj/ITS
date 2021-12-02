@@ -2,10 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "ITS",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.ts"
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "dev": "nodemon -x ts-node app.ts"
   },
   "author": "makyfj",
   "license": "ISC",
@@ -27,5 +28,9 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12"
+  },
+  "engines": {
+    "node": "17.1.0",
+    "npm": "8.1.3"
   }
 }
