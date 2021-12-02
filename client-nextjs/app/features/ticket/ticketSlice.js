@@ -225,6 +225,7 @@ const initialState = {
       caseHistory: [],
     },
   ],
+  categories: [],
 };
 
 const ticketSlice = createSlice({
@@ -284,6 +285,9 @@ const ticketSlice = createSlice({
           caseHistory: [],
         },
       ];
+    },
+    addCategory: (state, { payload }) => {
+      state.categories = [...payload];
     },
   },
   extraReducers: (builder) => {
@@ -401,5 +405,6 @@ export const {
   clearTicketInfo,
   clearTickets,
   clearUserTickets,
+  addCategory,
 } = ticketSlice.actions;
 export default ticketSlice.reducer;

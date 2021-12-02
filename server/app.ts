@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "./database/db";
 import { userRoutes } from "./routes/userRoutes";
 import { ticketRoutes } from "./routes/ticketRoutes";
+import { categoryRoutes } from "./routes/categoryRoutes";
 
 // environment variables
 dotenv.config();
@@ -28,6 +29,9 @@ app.use("/api/users", userRoutes);
 
 // Ticket routes
 app.use("/api/tickets", ticketRoutes);
+
+// Category routes
+app.use("/api/category", categoryRoutes);
 
 const port = 5000;
 
