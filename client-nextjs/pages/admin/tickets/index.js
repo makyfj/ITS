@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import HeadPage from "../../../components/headPage";
-import { getAllTickets } from "../../../app/features/ticket/ticketSlice";
+import {
+  getAllTickets,
+  getCategories,
+} from "../../../app/features/ticket/ticketSlice";
 
 const Tickets = () => {
   const dispatch = useDispatch();
@@ -28,6 +31,10 @@ const Tickets = () => {
 
   useEffect(() => {
     dispatch(getAllTickets(_id));
+
+    // Dummy id to access state
+    const tempId = "id";
+    dispatch(getCategories(tempId));
 
     if (!isAdmin) {
       router.push("/");
