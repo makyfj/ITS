@@ -22,9 +22,17 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+  const { userLogin } = useSelector((state) => state.auth);
 
   const updateAccount = (e) => {
     e.preventDefault();
+
+    if (isAdmin === "true" || "True") {
+      isAdmin = true;
+    } else {
+      isAdmin = false;
+    }
+
     dispatch(updateUser({ userId, name, email, password, isAdmin }));
   };
 
@@ -74,7 +82,19 @@ const UserProfile = () => {
 
         <br />
 
-        <label>isAdmin: {userInfo.isAdmin ? "True" : "False"}</label>
+        {userLogin.isAdmin ? (
+          <label>
+            Admin:
+            <input
+              type="text"
+              value={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.value)}
+              placeholder={userInfo.isAdmin ? "true" : "false"}
+            />
+          </label>
+        ) : (
+          <label>Admin: {userInfo.isAdmin ? "true" : "false"}</label>
+        )}
 
         <br />
         <button type="submit" onClick={updateAccount}>
