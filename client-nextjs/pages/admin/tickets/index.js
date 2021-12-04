@@ -39,6 +39,7 @@ const Tickets = () => {
       <div className="tableContainer">
         <HeadPage title="Admin: View Tickets" />
         <h1>Tickets</h1>
+        <div className = "searchCategory">
         <label>
           Search by Category:{" "}
           <select
@@ -53,6 +54,7 @@ const Tickets = () => {
             ))}
           </select>
         </label>
+        </div>
         <table>
           <thead>
             <tr>

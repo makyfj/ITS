@@ -336,3 +336,27 @@ div.tableContainer table tr td {
   padding: 1%;
   font-family: "open_sans";
 }
+
+/*===================================================*/
+/*Styling admin/tickets/ search categories*/
+
+div.searchCategory{
+
+  background-color: rgb(28, 102, 163);
+  border: 1px solid rgb(255,255,255);
+  width: 350px;
+  padding: 1%;
+  font-family: "open-sans";
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  margin-bottom: 1%
+
+}
+
+
+
+
+
+
+
