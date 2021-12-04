@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
+import HeadPage from "../../../components/headPage";
 import {
   getCategories,
   updateCategories,
@@ -37,25 +38,28 @@ const AddCategory = () => {
 
   return (
     <div className="tableContainer">
+      <HeadPage title="Add Category" />
       <h1>Add Category</h1>
       <form>
-        <label>
-          Category
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-        </label>
+        <div className="searchCategory">
+          <label>
+            Category{"  "}
+            <input
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
+          </label>
 
-        <button
-          type="submit"
-          onClick={updateCategory}
-          disabled={category === "" ? true : false}
-        >
-          Add Category
-        </button>
+          <button
+            type="submit"
+            onClick={updateCategory}
+            disabled={category === "" ? true : false}
+          >
+            Add Category
+          </button>
+        </div>
       </form>
     </div>
   );

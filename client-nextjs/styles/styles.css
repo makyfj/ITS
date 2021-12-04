@@ -342,7 +342,7 @@ div.tableContainer table tr td {
 
 div.searchCategory {
   background-color: rgb(28, 102, 163);
-  color: rgb(255,255,255);
+  color: rgb(255, 255, 255);
   border: 1px solid rgb(255, 255, 255);
   width: 350px;
   margin: auto;
@@ -352,12 +352,7 @@ div.searchCategory {
   text-align: center;
   border-radius: 15px;
   margin-bottom: 1%;
-
 }
 
 /*===================================================*/
 /*Styling admin/tickets/add-category                 */
-
-
-
-
