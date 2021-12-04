@@ -340,23 +340,14 @@ div.tableContainer table tr td {
 /*===================================================*/
 /*Styling admin/tickets/ search categories*/
 
-div.searchCategory{
-
+div.searchCategory {
   background-color: rgb(28, 102, 163);
-  border: 1px solid rgb(255,255,255);
+  border: 1px solid rgb(255, 255, 255);
   width: 350px;
+  margin: auto;
   padding: 1%;
   font-family: "open-sans";
-  display: flex;
-  justify-content: center;
+  text-align: center;
   border-radius: 15px;
-  margin-bottom: 1%
-
+  margin-bottom: 1%;
 }
-
-
-
-
-
-
-
