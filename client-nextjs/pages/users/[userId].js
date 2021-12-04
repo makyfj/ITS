@@ -3,6 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
+import { toast } from "react-toastify";
+import Spinner from "../../components/spinner";
+import Notification from "../../components/notification";
 import HeadPage from "../../components/headPage";
 import {
   getUser,
@@ -21,6 +24,9 @@ const UserProfile = () => {
   const { userId } = router.query;
 
   const dispatch = useDispatch();
+  const { isSuccess, isFetching, isError, errorMessage } = useSelector(
+    (state) => state.auth.status
+  );
   const { userInfo } = useSelector((state) => state.auth);
   const { userLogin } = useSelector((state) => state.auth);
 
@@ -34,11 +40,28 @@ const UserProfile = () => {
     }
 
     dispatch(updateUser({ userId, name, email, password, isAdmin }));
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
+
+    if (isSuccess) {
+      toast.success("User info updated");
+    }
   };
 
   const deleteAccount = (e) => {
     e.preventDefault();
     dispatch(deleteUser(userId));
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
+
+    if (isSuccess) {
+      toast.success("User deleted");
+    }
+
     router.push("/");
     dispatch(clearStatus());
   };
@@ -51,6 +74,9 @@ const UserProfile = () => {
   return (
     <div className="userId">
       <HeadPage title={`User Info: ${userInfo.name}`} />
+      {isSuccess && <Notification />}
+      {isFetching && <Spinner />}
+      {isError && <Notification />}
       <h1>User Info</h1>
       <form>
         <label>Name: </label>

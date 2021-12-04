@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
+import { toast } from "react-toastify";
+import Notification from "../../../components/notification";
+import Spinner from "../../../components/spinner";
 import HeadPage from "../../../components/headPage";
 import {
   getCategories,
@@ -13,6 +16,9 @@ const AddCategory = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isSuccess, isFetching, isError, errorMessage } = useSelector(
+    (state) => state.ticket.ticketStatus
+  );
   const { categories } = useSelector((state) => state.ticket);
   const { _id, isAdmin } = useSelector((state) => state.auth.userLogin);
 
@@ -26,6 +32,14 @@ const AddCategory = () => {
     categories.forEach((value) => (_id = value._id));
 
     dispatch(updateCategories({ _id, category }));
+
+    if (isSuccess) {
+      toast.success("Category added");
+    }
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +53,9 @@ const AddCategory = () => {
   return (
     <div className="tableContainer">
       <HeadPage title="Add Category" />
+      {isSuccess && <Notification />}
+      {isFetching && <Spinner />}
+      {isError && <Notification />}
       <h1>Add Category</h1>
       <form>
         <div className="searchCategory">

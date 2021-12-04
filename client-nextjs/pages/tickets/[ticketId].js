@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
+import { toast } from "react-toastify";
+import Notification from "../../components/notification";
+import Spinner from "../../components/spinner";
 import HeadPage from "../../components/headPage";
 import {
   getTicket,
@@ -22,7 +25,9 @@ const TicketId = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { ticketInfo } = useSelector((state) => state.ticket);
-  const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+  const { isSuccess, isError, errorMessage, isFetching } = useSelector(
+    (state) => state.ticket.ticketStatus
+  );
   const { categories } = useSelector((state) => state.ticket);
 
   // For Category State Management
@@ -41,7 +46,7 @@ const TicketId = () => {
 
     let tags;
     if (ticketTags === "") {
-      tags = ticketInfo.tags.split(",");
+      tags = ticketInfo.tags;
     } else {
       tags = ticketTags.split(",");
     }
@@ -55,12 +60,26 @@ const TicketId = () => {
     dispatch(
       updateTicket({ _id, category, description, tags, state, currentAssignee })
     );
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
+
+    if (isSuccess) {
+      toast.success("Ticket updated");
+    }
   };
 
   const deleteTicketHandler = (e) => {
     e.preventDefault();
     dispatch(deleteTicket(_id));
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
+
     if (isSuccess) {
+      toast.success("Ticket deleted");
       dispatch(clearTicketInfo());
       dispatch(clearTicketStatus());
       router.push("/");
@@ -77,6 +96,9 @@ const TicketId = () => {
   return (
     <>
       <HeadPage title={`Ticket Info: ${ticketInfo.category}`} />
+      {isSuccess && <Notification />}
+      {isFetching && <Spinner />}
+      {isError && <Notification />}
       <h1 className="titlePage">Ticket Info</h1>
       <div className="ticket">
         <form>
@@ -84,7 +106,7 @@ const TicketId = () => {
           <label>
             Category:{" "}
             <select
-              value={category ? category : ticketInfo.category}
+              value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
               {categoryArray.map((item, index) => (
@@ -98,7 +120,7 @@ const TicketId = () => {
             Description:
             <textarea
               type="text"
-              value={description ? description : ticketInfo.description}
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows="4"
               placeholder={ticketInfo.description}
@@ -129,7 +151,7 @@ const TicketId = () => {
             Tags:{" "}
             <input
               type="text"
-              value={ticketTags ? ticketTags : ticketInfo.tags}
+              value={ticketTags}
               onChange={(e) => setTicketTags(e.target.value)}
               placeholder={ticketInfo.tags}
             />
@@ -139,9 +161,7 @@ const TicketId = () => {
             Current Assignee:{" "}
             <input
               type="text"
-              value={
-                currentAssignee ? currentAssignee : ticketInfo.currentAssignee
-              }
+              value={currentAssignee}
               onChange={(e) => setCurrentAssignee(e.target.value)}
               placeholder={ticketInfo.currentAssignee}
             />
