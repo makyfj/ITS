@@ -36,7 +36,11 @@ const createTicket = asyncHandler(async (req: Request, res: Response) => {
 
   const createTicket = await ticket.save({});
 
-  res.status(201).json(createTicket);
+  if (createTicket) {
+    res.status(201).json(createTicket);
+  } else {
+    res.status(400).send("Can't create ticket, please try again");
+  }
 });
 
 // @desc Get a ticket by id

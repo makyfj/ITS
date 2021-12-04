@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
+import Spinner from "../../components/spinner";
+import Notification from "../../components/notification";
 import HeadPage from "../../components/headPage";
 import {
   createTicket,
@@ -16,7 +19,9 @@ const Ticket = () => {
 
   const dispatch = useDispatch();
 
-  const { isSuccess } = useSelector((state) => state.ticket.ticketStatus);
+  const { isSuccess, isFetching, isError, errorMessage } = useSelector(
+    (state) => state.ticket.ticketStatus
+  );
   const { categories } = useSelector((state) => state.ticket);
 
   // For Category State Management
@@ -38,6 +43,11 @@ const Ticket = () => {
     }
 
     dispatch(createTicket({ category, description, tags, currentAssignee }));
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
+
     if (isSuccess) {
       router.push("/tickets/view");
     }
@@ -51,6 +61,8 @@ const Ticket = () => {
   return (
     <>
       <HeadPage title="Create a ticket" />
+      {isFetching && <Spinner />}
+      {isError && <Notification />}
       <h1 className="titlePage">Create a ticket</h1>
       <div className="ticket">
         <form>
