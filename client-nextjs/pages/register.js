@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import HeadPage from "../components/headPage";
 import { registerUser, clearStatus } from "../app/features/auth/authSlice";
+import { toast } from "react-toastify";
+import Notification from "../components/notification";
+import Spinner from "../components/spinner";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -12,13 +15,16 @@ const Register = () => {
 
   const dispatch = useDispatch();
 
-  const { isSuccess } = useSelector((state) => state.auth.status);
+  const { isSuccess, isError, isFetching, errorMessage } = useSelector(
+    (state) => state.auth.status
+  );
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(registerUser({ name, password, email }));
+    toast.error(errorMessage);
   };
 
   useEffect(() => {
@@ -31,6 +37,8 @@ const Register = () => {
   return (
     <div className="register_container">
       <HeadPage title="Register" />
+      {isError && <Notification />}
+      {isFetching && <Spinner />}
       <h1>Register</h1>
       <form>
         <label>Name: </label>
@@ -40,6 +48,7 @@ const Register = () => {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
         <br />
 
@@ -50,6 +59,7 @@ const Register = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <br />
 
@@ -60,6 +70,7 @@ const Register = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <br />
         <button type="submit" onClick={handleSubmit}>

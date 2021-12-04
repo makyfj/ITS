@@ -14,8 +14,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const userExists = await UserModel.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error("User already registered");
+    res.status(400).send("User already registered");
   }
 
   const newUser = await UserModel.create({ name, email, password });

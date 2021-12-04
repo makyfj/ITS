@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { loginUser } from "../app/features/auth/authSlice";
 import HeadPage from "../components/headPage";
+import Spinner from "../components/spinner";
+import { toast } from "react-toastify";
+import Notification from "../components/notification";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,12 +14,18 @@ const Login = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isSuccess } = useSelector((state) => state.auth.status);
+  const { isSuccess, isFetching, isError, errorMessage } = useSelector(
+    (state) => state.auth.status
+  );
   const { userLogin } = useSelector((state) => state.auth);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
+
+    if (isError) {
+      toast.error(errorMessage);
+    }
   };
 
   useEffect(() => {
@@ -28,6 +37,8 @@ const Login = () => {
   return (
     <div className="login_container">
       <HeadPage title="Login" />
+      {isFetching && <Spinner />}
+      {isError && <Notification />}
       <h1>Login</h1>
       <form>
         <label>Email: </label>

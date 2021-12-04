@@ -1,5 +1,7 @@
 import React from "react";
+
 import HeadPage from "../components/headPage";
+import Notification from "../components/notification";
 
 const Home = () => {
   return (
@@ -8,6 +10,7 @@ const Home = () => {
       <h1>Incident Tracking System - Homepage</h1>
       <div className="aboutBloc">
         <h1>About</h1>
+        <Notification />
         <p>
           Welcome to the Incident Tracking System. This is a System used to
           track certain incidents across the net. You will need to create an
