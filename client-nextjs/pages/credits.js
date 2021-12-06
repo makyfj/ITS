@@ -17,6 +17,13 @@ const Credits = () => {
         Steve
         <br />
       </p>
+      <h1>Tools/Software(s)</h1>
+      <p>
+        Client: JavaScript, NextJS, Redux Toolkit
+        <br />
+        Server: TypeScript, MongoDB, Express, NodeJS
+        <br />
+      </p>
     </div>
   );
 };

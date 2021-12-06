@@ -59,7 +59,7 @@ export const getUser = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.userInfo.token}`,
+          Authorization: `Bearer ${auth.userLogin.token}`,
         },
       };
       const { data, status } = await axios.get(
@@ -90,7 +90,7 @@ export const updateUser = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.userInfo.token}`,
+          Authorization: `Bearer ${auth.userLogin.token}`,
         },
       };
 
@@ -126,7 +126,7 @@ export const deleteUser = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.userInfo.token}`,
+          Authorization: `Bearer ${auth.userLogin.token}`,
         },
       };
 
@@ -158,7 +158,7 @@ export const getAllUsers = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.userInfo.token}`,
+          Authorization: `Bearer ${auth.userLogin.token}`,
         },
       };
 

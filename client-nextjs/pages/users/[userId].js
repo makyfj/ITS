@@ -33,9 +33,11 @@ const UserProfile = () => {
   const updateAccount = (e) => {
     e.preventDefault();
 
-    if (isAdmin === "true" || "True") {
+    if (isAdmin === "true") {
       isAdmin = true;
-    } else {
+    }
+
+    if (isAdmin === "false") {
       isAdmin = false;
     }
 
