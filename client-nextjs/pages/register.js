@@ -24,7 +24,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(registerUser({ name, password, email }));
-    toast.error(errorMessage);
+    if (isError) {
+      toast.error(errorMessage);
+    }
   };
 
   useEffect(() => {
