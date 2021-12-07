@@ -107,6 +107,8 @@ const Layout = ({ children }) => {
         Copyright &copy; ITS 2021
         <br />
         Email: its_admin@its.com
+        <br />
+        <a href="https://github.com/makyfj/ITS">Source Code {"<3"}</a>
       </footer>
     </>
   );
