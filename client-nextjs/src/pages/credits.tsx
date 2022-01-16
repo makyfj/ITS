@@ -1,6 +1,6 @@
 import React from "react";
 
-import HeadPage from "../components/headPage";
+import HeadPage from "@/components/headPage";
 
 const Credits = () => {
   return (

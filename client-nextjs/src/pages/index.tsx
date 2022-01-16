@@ -1,7 +1,7 @@
 import React from "react";
 
-import HeadPage from "../components/headPage";
-import Notification from "../components/notification";
+import HeadPage from "@/components/headPage";
+import Notification from "@/components/notification";
 
 const Home = () => {
   return (

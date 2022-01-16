@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
-import HeadPage from "../../../components/headPage";
-import { getAllUsers } from "../../../app/features/auth/authSlice";
+import HeadPage from "@/components/headPage";
+import { getAllUsers } from "@/app/features/auth/authSlice";
 
 const Users = () => {
   const dispatch = useDispatch();

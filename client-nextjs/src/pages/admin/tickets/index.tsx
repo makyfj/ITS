@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
-import HeadPage from "../../../components/headPage";
+import HeadPage from "@/components/headPage";
 import {
   getAllTickets,
   getCategories,
-} from "../../../app/features/ticket/ticketSlice";
+} from "@/app/features/ticket/ticketSlice";
 
 const Tickets = () => {
   const dispatch = useDispatch();

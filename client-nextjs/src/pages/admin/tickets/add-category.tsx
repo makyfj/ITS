@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 import { toast } from "react-toastify";
-import Notification from "../../../components/notification";
-import Spinner from "../../../components/spinner";
-import HeadPage from "../../../components/headPage";
+import Notification from "@/components/notification";
+import Spinner from "@/components/spinner";
+import HeadPage from "@/components/headPage";
 import {
   getCategories,
   updateCategories,
-} from "../../../app/features/ticket/ticketSlice";
+} from "@/app/features/ticket/ticketSlice";
 
 const AddCategory = () => {
   const [category, setCategory] = useState("");

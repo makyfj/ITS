@@ -7,16 +7,20 @@ import {
   logoutUser,
   clearStatus,
   clearUsers,
-} from "../app/features/auth/authSlice";
+} from "@/app/features/auth/authSlice";
 import {
   clearTickets,
   clearTicketInfo,
   clearTicketStatus,
   clearUserTickets,
   clearCategories,
-} from "../app/features/ticket/ticketSlice";
+} from "@/app/features/ticket/ticketSlice";
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { userLogin } = useSelector((state) => state.auth);

@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
-import Notification from "../../components/notification";
-import Spinner from "../../components/spinner";
-import HeadPage from "../../components/headPage";
+import Notification from "@/components/notification";
+import Spinner from "@/components/spinner";
+import HeadPage from "@/components/headPage";
 import {
   getTicket,
   updateTicket,

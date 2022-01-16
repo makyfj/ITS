@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
 import { toast } from "react-toastify";
-import Spinner from "../../components/spinner";
-import Notification from "../../components/notification";
-import HeadPage from "../../components/headPage";
+
+import Spinner from "@/components/spinner";
+import Notification from "@/components/notification";
+import HeadPage from "@/components/headPage";
 import {
   getUser,
   updateUser,

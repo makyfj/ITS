@@ -3,13 +3,10 @@ import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import Spinner from "../../components/spinner";
-import Notification from "../../components/notification";
-import HeadPage from "../../components/headPage";
-import {
-  createTicket,
-  getCategories,
-} from "../../app/features/ticket/ticketSlice";
+import Spinner from "@/components/spinner";
+import Notification from "@/components/notification";
+import HeadPage from "@/components/headPage";
+import { createTicket, getCategories } from "@/app/features/ticket/ticketSlice";
 
 const Ticket = () => {
   const [category, setCategory] = useState("");

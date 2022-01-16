@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
-import HeadPage from "../components/headPage";
-import { registerUser, clearStatus } from "../app/features/auth/authSlice";
 import { toast } from "react-toastify";
-import Notification from "../components/notification";
-import Spinner from "../components/spinner";
+
+import HeadPage from "@/components/headPage";
+import { registerUser, clearStatus } from "@/app/features/auth/authSlice";
+import Notification from "@/components/notification";
+import Spinner from "@/components/spinner";
 
 const Register = () => {
   const [name, setName] = useState("");
