@@ -1,83 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
+import { useAppDispatch } from "@/app/hooks";
 import HeadPage from "@/components/headPage";
-import { registerUser, clearStatus } from "@/app/features/auth/authSlice";
-import Notification from "@/components/notification";
-import Spinner from "@/components/spinner";
+import { RegisterRequest } from "@/types/User";
+import { useRegisterUserMutation } from "@/app/services/userApi";
+import { setCredentials } from "@/app/features/auth/authSlice";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<RegisterRequest>();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { isSuccess, isError, isFetching, errorMessage } = useSelector(
-    (state) => state.auth.status
-  );
+  const [registerUser, { isLoading, isError, error }] =
+    useRegisterUserMutation();
 
-  const router = useRouter();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(registerUser({ name, password, email }));
-    if (isError) {
-      toast.error(errorMessage);
-    }
+  const onSubmit: SubmitHandler<RegisterRequest> = async (data) => {
+    const user = await registerUser(data).unwrap();
+    dispatch(setCredentials(user));
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(clearStatus());
-      router.push("/");
-    }
-  }, [router, isSuccess, dispatch]);
 
   return (
     <div className="register_container">
       <HeadPage title="Register" />
-      {isError && <Notification />}
-      {isFetching && <Spinner />}
       <h1>Register</h1>
-      <form>
-        <label>Name: </label>
-        <br />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name">Name</label>
         <input
+          arial-label="Enter name"
+          id="name"
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
+          {...register("name", { required: "The name is required" })}
         />
-        <br />
+        {errors.name && <span>{errors.name.message}</span>}
 
-        <label>Email: </label>
-        <br />
+        <label htmlFor="email">Email</label>
         <input
+          arial-label="Enter email"
+          id="email"
           type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          {...register("email", { required: "The email is required" })}
         />
-        <br />
+        {errors.email && <span>{errors.email.message}</span>}
 
-        <label>Password: </label>
-        <br />
+        <label htmlFor="password">Password</label>
         <input
+          arial-label="Enter password"
+          id="password"
           type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+          {...register("password", {
+            required: "The password is required",
+            minLength: {
+              value: 6,
+              message: "Minimum length must be at least 6 characters",
+            },
+          })}
         />
-        <br />
-        <button type="submit" onClick={handleSubmit}>
-          Register
-        </button>
+        {errors.password && <span>{errors.password.message}</span>}
+
+        <button type="submit">Register</button>
       </form>
     </div>
   );

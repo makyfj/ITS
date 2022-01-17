@@ -10,17 +10,22 @@ import {
 } from "redux-persist";
 import storage from "./sync-storage";
 
-import authSlice from "./features/auth/authSlice";
+import authReducer from "./features/auth/authSlice";
 import ticketSlice from "./features/ticket/ticketSlice";
+
+import { userApi } from "./services/userApi";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  whitelist: ["auth"],
 };
 
 const rootReducer = combineReducers({
-  auth: authSlice,
+  [userApi.reducerPath]: userApi.reducer,
+
+  auth: authReducer,
   ticket: ticketSlice,
 });
 
@@ -33,7 +38,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(userApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
